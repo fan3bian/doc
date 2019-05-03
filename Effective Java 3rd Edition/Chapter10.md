@@ -309,4 +309,75 @@ It should be noted that documenting all of the unchecked exceptions that each me
 
 In summary, document every exception that can be thrown by each method that you write. This is true for unchecked as well as checked exceptions, and for abstract as well as concrete methods. This documentation should take the form of @throws tags in doc documents. Declaring each checked exceptions individually in method's throw clause, but do not declare unchecked excepitons. If you fail to document the exceptions that your method can throw, it will be difficult or impossible for others to make effective use of your classes and interfaces.
 
+#### Item 75: Include failure-capture information in detial messages
 
+When a program fails due to uncaught exception, the system automatically prints out the expections's stack trace. The stack trace contains the exception's string representation, the result of invoking its toString method. This typically consists of the exception's class name followed by its detail message. Frequently this is the only information that programmers or site reliability engineers will have when investigating a software failure. If the failure is not easily reproducible, it may be difficult or impossible to get any more information. Therefore, it is critically important that the exception's toString method return as much information as possible concerning that cause of the failure. In other words, the detail message of an exception should capture the failure for subsequent analysis.
+
+**To capture a failure, the detail message of an exception should contain the values of all parameters and fields that contributed to the exception.** For example, the detail message of an IndexOutOfBoundException should contain the lower bound, the upper bound, and the index value that failed to lie between the bounds. This information tells a lot about the failure. Any or all of the three values could be wrong. The index could be one less than the lower bound or equal to the upper bound (a "fencepost error"), or it could be a wild value, far too low or high. The lower bound could be greater than the upper bound (a serious internal invariant failure). Each of these situations ponits to a different problem, and it greatly aids in the diagnosis if you now what sort of error you're looking for.
+
+One caveat concerns security-sensitive information. Because stack traces may be seen by many people in the process of diagnosing and fixing software issues, **do not include passwords, encryption keys, and the like in detial message.**
+
+While it is critical to include all of the pertinent data in the detail message of an excepiton, it is generally unimportant to include a lot of prose. The stack trace is intended to be analyzed in conjunction with the documentation and, if necessary, source code. It generally contains the exact file and line number from which the exception was thrown, as well as the files and line numbers of all other method invocations on the stack. Lengthy prose descriptions of the failure are superfluous; the information can be gleaned by reading the documentation and source code.
+
+The detail message of an exception should not be confused with a user-level error message, which must be intelligible to end users. Unlike a user-level error message, the detail message is primarily for the benefit of programmers or site reliability engineers, when analyzing a failure. Therefore, infomation content is far more important than readability. User-level error messages are often localized, whereas excepiton detial message rarely are.
+
+One way to ensure that excepiton contain adequate failure-capture information in there detial message is to require this information in there constructors instead of a string detail message. The detail message can then be generated automatically to include the information. For example, instead of a String constructer, IndexOutOfBoundException could have had a contructor that looks like this:
+```
+
+```
+As of java 9, IndexOutOfBoundException finally acquired a constructor that takes an int value index parameter, but sidly it omits the loverBound and upperBound parameters. More generally, the java libraries don't make havey use of this idiom, but it is highly recommended. It makes it easy for the programmer throwing an excepiton to capture the failure. In fact, it makes it hard for the programmer not to capture the failure! In effect, the idiom centralizes the code to generate a high-quality detail message in the excepiton class, rather than requiring each user of the class to generate the detail message redundantly.
+
+As suggested in Item 70, it may be appropriate for an exception to provide accessor methods for its failure-capture information (lowerBound, upperBound, and index in the above example). It is more important to provide such accessor methods on the checked exceptions than unchecked, because the failure-capture  information could be useful in recovering from the failure. It is rare (although no inconceviable) that a programmer might want programmatic access to the details of an unchecked exception. Even for unchecked exceptions, however, it seems advisable to provide these accessors on general principle(Item 12, pate 57.)
+
+#### Item 76: Strive for failure atomicity
+
+After an object thrown an excepiton, it is generally desirable that the object still be in a well-defined, usable state, even if the failure occurred in the midst of performing an operation. This is especially true for checked exceptions, from which the caller is expected to recover. **Generally speaking, a failed method invocation should leave the object in the state that it was in prior to the invocation.** A method with this property is said to be failure-atomic.
+
+There are several ways to achieve this effect. The simplest is to design immutable objects(Item 17). If an object is immutable, failure atomicity is free. If an operation fails, it may prevent a new object from getting created, but it will never leave an existing object in an inconsistent state, because the state of each object is consistent when it is created and can't be modified thereafter.
+```java
+public Object pop() {
+	if (size == 0)
+		throw new EmptyStackException();
+	Object result = element[--size];
+	element[size] = null;// Eliminate obsolete reference
+	return result;
+}
+```
+If the initial size check were eliminated, the method would still throw an exception when it attempted to pop an element from an empty stack. It would, however, leave the size field in an inconsistent (negative) state, causing any future method invocations on the object to fail. Additionally, the ArrayIndexOutOfBoundsException thrown by the pop method would be inappropriate to the abstraction.
+
+A closely related approach to achieving failure atomicity is to order the computation so that any part may fail takes place before any part that modifies the oeject. This approach is a natural extension of the previous one when arguments cannot be checked without performing a part of the computation. For example, consider the case of TreeMap, whose elements are sorted according to somre ordering. In order to add an element to a TreeMap, the element must be of a type that can be compared using the TreeMaps' ordering. Attempting to add an incorrectly typed element will naturally fail with a ClassCastException as a result of searching for the element in the tree, before the tree has been modified in any way.
+
+A third approach to achieving failure atomicity is to perfom the operation on a temporary copy of the object and to replace the contents of the object with the temporary copy oce the opreation is complete. This approach occurs naturally when the computation can be performed more quickly once the data has been stored in a temporary data structure. For example, some sorting functions copy their input list into an array prior to sorting to reduce the cost of accessing elements in the inner loop of the sort. This is done for perfomance, but as an added benefit, it ensures that the input list will be untouched if the sort fails.
+
+A last and far less common approach to achieving failure atomicity is write recovery code that intercepts a failure that occurs in the midst of an operation, and causes the object to roll back its state to the point before the opreation began. This approach is used mainlu for durable(disk-based) data structures.
+
+While failure atomicity is generally desirable, it is not always achievable. For example, if two threads attempt to modifiy the same object concurrently without proper synchronization, the object may be left in an inconsisten state. It would therefore be wrong to assume that an object was still usable after catching a ConcurrentModificationException. Errors are unrevoerable, so you need not even attempt to preserve failure atomicity where throwing AssertionError.
+
+Even where failure actomicity is possible, it is not always desirable. For some opreations, it would significantly increase the cost or complexity. That said, it is often both free and easy to achieve failure atomicity once you're aware of the issue.
+
+In summmary, as a rule, any generated exception that is part of a method's specification should leave the object in the same state it was in prior to the method invocation. Where this rule is violated, the API doucmentation should clearly indicate what sate the object will be left in. Unfortunately, plenty of existing API documentation fails to live up to this ideal.
+
+#### Item 77 Don't ignore excepitions
+
+While this advice may seem obvious, it is violated often enough that it bears repeating. When the designers of an API declare a method to throw an exception, they are trying to tell you something. Don't ignore it! It is easy to ignore excepitons by surrounding a method invocation with a try statement whose catch block is empty：
+```java
+// Empty catch block ignores exception -Highly suspect!
+try{
+	...
+}catch(SomeException e){
+}
+```
+**An empty catch block defeats the purpose of exceptions,** which is to force you to handle exceptional conditions. Ignoring an exception is analogous to ignoring a file alarm-and turning it off so no one else gets a chance to see if there's a real fire. You may get away with it, or the results may be disastrous.
+Whenever you see an empty catch block, alram bells should go off in your head.
+
+There are situations where it is appropriate to ignore an exception. For example, it might be appropriate when closing a FileInputStream. You haven't changed the state fo the file, so there's no need to perform any recovery action, and you've already read the information that you need from the file, so there's no reason to abort the opreation in progress. It may be wise to log the exception, so that you can investigate the matter if these exceptions happen often. **If you choose to ignore an exception, the catch block should contain a comment explaining why it is appropriate to do so, and the variable should be named ignored:**
+```java
+Future<Integer> f = exec.submit(planarMap::chromaticNumber);
+int numColors = 4;
+try{
+	numColors = f.get(1L, TimeUnit.SECONDS);
+}catch{TimeoutException | ExceptionException ignored} {
+	// Use default: miniaml coloring is desirable, not required
+}
+```
+The advice in this item applies equally to checked and unchecked exceptions. Whether an exception represents a predictable exceptional condition or a prgramming error, ignoring it with an empty catch block will result in a program that continues silently in the face of error. The program might then fail at an arbitrary time in the future, at a point in the code taht bears no apparent relation to the source of the problem. Properly handling an exception can avert failure entirely. Merely letting an exception propagate outward can at least cause the program to fail swiftly, preserving infomation to aid in debugging the failure.
