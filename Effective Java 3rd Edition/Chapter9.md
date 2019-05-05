@@ -437,3 +437,56 @@ This is, roughly speaking, the API that java.lang.ThreadLocal provides. In addit
 To summarize, avoid the natural tendency to represnet objects as strings when better data types exist or can be written. Used inappropriately, strings are more cumbersome, less flexible, slower, and more error-prone than other types. Types for wihch string are commonly miused include primitive types, enums, and aggregate types.
 
 #### Beware the performance of string concatenation
+
+The string concatenation operator(+) is a convenient way to combine a few strings into one. It is fine for generating a single line of output or constructing the string representation of a small, fiexd-size object, but it does not scale. **Using the string concatenation opreator repeatedly to concatenate n strings requires time quadratic in n.** This is an unfortunate consequence of the fact that strings are immutable(Item 17). When two strins are concatenated, the contents of both are copied.
+
+For example, consider this method, which constructs the string representation of a billing statement by repeatedly concatenating a line for each item:
+```java
+// Inappropriate use of strng concatenation - Performs poorly
+public String statement () {
+	String result = "";
+	for (int i =0 ;i < intItems(); i++)
+		result += lineForItem(i);// String concatenantion
+	return result;
+}
+```
+The method performs abysamll if the number of items is  large. **To achieve acceptable performance, use a StringBuilder in place of a String** to store the statement under construction:
+```
+public String statement(){
+	StringBuilder b = new StringBuilder(numItems() * LINE_WIDTH);
+	for (int i = 0; i < numItems(); i++)
+		b.append(lineForItem(i))
+	return b.toString();
+}
+```
+
+A lot of work has gone into making string concatenation faster since Java 6, but the difference in the performance of two methods is still dramatic: If numItems returns 100 and lineForItems return an 80-character string, the second method run 6.5 times faster than the first on my machine. Because the first method is quardratic in the number of items and the second is liner, the performance difference gets much larger as the number of items grwows. Note that the second method prealloates a StringBuilder large enough to hold the entire result, eliminating the need for automatic growth. Even if it is detuned to use a default-size StringBuilder, it is still 5.5 times faster than the first method.
+
+The moral is simple: **Don't use the string concatenation operator to combine more than a few strings** unless performance is irrelevant. Use StringBuilder's append method instead. Alternatively, use a character array, or process the strings one at a time instead of combining them.
+
+#### Item 64: Refer to objects by their interfaces
+
+Item 51 says that you should use interfaces rathar than classes as parameter types. More generally, you should favor the use of interfaces over classes to refer to objects. **If appropriate interface types exist, then parameters, return values, variables, and fields should all be declared using interface types.** The only time you really need to refer to an object's class is when you're creating it with a constructor. To make this concrete, consider the case of LinkedHashSet, which is an implementation of the Set interface. Get in the habit of typing this:
+```java
+//Good -uses interface as type
+Set<Son> sonSet = new LinkedHashSet<>();
+```
+not this
+```java
+//Bad
+LinkedHashSet<Son> sonSet = new LinkedHashSet<>();
+```
+
+**If you get into the habit of using interfaces as types, your program will be much more flexible.** If you decide that you want to switch implementations, all you have to do is change the class name in the constructor( or use a different static factory.) For example, the first declaration could be changed to read:
+```java
+Set<Son> sonSet = new HashSet<>();
+```
+and all of the surrounding code would continue to work. The surrounding code was unaware to old implemntation type, so it would be oblivious to the change.
+
+There is one caveat: if the original implementation offered some special functionality not required by the general contract of the interface and the code depended on the same functionality, then it is critical of the interface and the code depneded on that functionality. For example, if the code surrounding the first declaration depended on LinkedHashSet's ordering policy, then it would be incorrect to subsitude HashSet for LinkedHashSet in the declaration, because HashSet makes no guarantee concerning iteration order.
+
+So why would you want to change an implementation type? Beacuse the second implementation offers better performance than the original, or because it offers desirable functionality that the orginal implementation lacks. For example, suppose a field contains a HashMap instance. Changing it to an EnumMap will provide better performance and iteration order consisitent with the natural order of the keys, but you can only use an EnumMap if the key type is an enum type.
+
+You might think it's OK to declare a variable using its implementation type, because you can change the declarationn type and the implementation type at the same time, but there is no guarantee that this change will result in a program that compiles. If the client code used methods on the original implementation type; then the code will no longer complie after making this change. Declaring the variable with the interface keeps you honest.
+
+**It is entirely appropriate to refer to an object by a class rather than an interface if no appropriate interface exists.** For example, consider value class, such as String and BigInteger.
