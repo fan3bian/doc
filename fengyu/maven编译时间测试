@@ -1,0 +1,34 @@
+maven编译时间：
+1. 正常编译
+第一次：
+[INFO] clps-biz-clps-gateway-api .......................... SUCCESS [ 21.446 s]
+[INFO] clps-biz-clps-gateway .............................. SUCCESS [  1.150 s]
+[INFO] clps-biz-clps-gateway-support ...................... SUCCESS [ 35.871 s]
+[INFO] clps-biz-clps-gateway-main ......................... SUCCESS [01:13 min]
+第二次：
+[INFO] clps-biz-clps-gateway-api .......................... SUCCESS [  9.471 s]
+[INFO] clps-biz-clps-gateway .............................. SUCCESS [  0.469 s]
+[INFO] clps-biz-clps-gateway-support ...................... SUCCESS [ 12.513 s]
+[INFO] clps-biz-clps-gateway-main ......................... SUCCESS [01:05 min]
+第三次：
+[INFO] clps-biz-clps-gateway-api .......................... SUCCESS [ 10.526 s]
+[INFO] clps-biz-clps-gateway .............................. SUCCESS [  0.290 s]
+[INFO] clps-biz-clps-gateway-support ...................... SUCCESS [ 14.957 s]
+[INFO] clps-biz-clps-gateway-main ......................... SUCCESS [01:12 min]
+2. 多线程编译 
+mvn clean package -T 1C -Dmaven.compile.fork=true
+第一次：
+[INFO] clps-biz-clps-gateway-api .......................... SUCCESS [ 11.444 s]
+[INFO] clps-biz-clps-gateway .............................. SUCCESS [  0.853 s]
+[INFO] clps-biz-clps-gateway-support ...................... SUCCESS [ 13.533 s]
+[INFO] clps-biz-clps-gateway-main ......................... SUCCESS [01:05 min]
+第二次：
+[INFO] clps-biz-clps-gateway-api .......................... SUCCESS [  7.909 s]
+[INFO] clps-biz-clps-gateway .............................. SUCCESS [  0.422 s]
+[INFO] clps-biz-clps-gateway-support ...................... SUCCESS [ 11.082 s]
+[INFO] clps-biz-clps-gateway-main ......................... SUCCESS [01:06 min]
+第三次：
+[INFO] clps-biz-clps-gateway-api .......................... SUCCESS [  8.294 s]
+[INFO] clps-biz-clps-gateway .............................. SUCCESS [  0.758 s]
+[INFO] clps-biz-clps-gateway-support ...................... SUCCESS [ 11.986 s]
+[INFO] clps-biz-clps-gateway-main ......................... SUCCESS [01:04 min]
