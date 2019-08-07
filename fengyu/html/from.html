@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="main-container" id="main-container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">函件模板基本信息<span
+                    class="glyphicon glyphicon-chevron-down right toggle cursor"></span>
+            </h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <input id="id" name="id" type="hidden" value="$!{proofConfig.id}" />
+                    <input id="proofConfigNo" name="proofConfigNo" type="hidden" value="$!{proofConfig.proofConfigNo}" />
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-5">
+                            <input type="email" class="form-control " id="inputEmail3">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="firstname" class="col-sm-2 control-label">名字</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control " id="firstname" placeholder="请输入名字">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proofConfigName" class="col-sm-2 control-label">zhangshuyi</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="proofConfigName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="proofConfigName" class="co1-sm-2 control-label">函件模</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="proofConfigName">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--      <div class="row">
+            <div class="col-sm-10 center">
+                <button id="proofConfig-form-sumbit" type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div> -->
+            <!-- 修改日志 -->
+            <!-- <div class="panel panel-primary dispaly-none" style="margin-top: 10px;" id="approval_stream_edit_log">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#approvalStreamEditLog"> 修改日志 </a>
+                </h3>
+            </div>
+            <div id="approvalStreamEditLog">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="text-muted">
+                                <textarea style="width: 100%;margin-top: 20px;overflow: scroll" rows="6" id="approvalStreamEditLogs" disabled="disabled"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div> -->
+        </div>
+    </div>
+    <script src="#springUrl('')/static/script/compensate/proofConfig/proofConfigEdit.js"></script>
+</body>
+
+</html>

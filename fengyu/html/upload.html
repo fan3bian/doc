@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap 实例</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <input type="file" id="fileElem" style="display：none" onchange="handleFiles(this.files)">
+<a href="#" id="fileSelect">上传</a>
+
+
+<input id="img_input2" type="file" accept="image/*" hidden="" />
+<label for="img_input2" id="img_label2">选择文件
+    <i class="fa fa-plus fa-lg"></i>
+</label>
+</div>
+
+</body>
+<script type="text/javascript">
+  var fileSelect = document.getElementById("fileSelect"),
+  fileElem = document.getElementById("fileElem");
+
+fileSelect.addEventListener("click", function (e) {
+  if (fileElem) {
+    fileElem.click();  // jQuery可以使用 trigger()
+  }
+  e.preventDefault(); // prevent navigation to "#"
+}, false);
+</script>
+</html>

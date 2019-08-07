@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>我的第一个 Bootstrap 页面</h1>
+            <p>重置窗口大小，查看响应式效果！</p>
+        </div>
+        <div class="row">
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <div style="width: 100px;">客户主体名称：</div>
+                </span>
+                <div>
+                    <input type="text" class="form-control" id="querySubjectName" name="queryPartnerName">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+$(function() {
+    var subjectList = [{"id":1,"subjectNo":"KH00001","subjectName":"江苏金利达服饰有限公司","parentNo":"","subjectShort":"金利达服饰有限","type":1,"status":2,"socialCreditCode":"898121331","legalPerson":"徐利","registeredCapital":"2000000","industryNo":"4,5,6","industryName":"3C,服装,食品","contacts":"徐甜甜","mobile":"18501263589","email":"xulil@163.com","address":"江苏省东台市开发区金海路2号","remark":"测试","createTime":1514736000000,"updateTime":1534162117000,"createUser":"zhuhua","updateUser":"bjlxdong","yn":1,"blicScope":null,"blicValidityEnd":null,"blicUrlA":null,"occBankName":null,"occBankChildname":null,"occBankAccount":null,"lepCardType":null,"lepCardNo":null,"lepValidityEnd":null,"lepUrlA":null,"lepUrlB":null,"aupCardType":null,"aupName":null,"aupCardNo":null,"aupValidityEnd":null,"aupUrlA":null,"aupUrlB":null,"subjectRequireLevel":null,"merRealStatus":0,"jrType":null,"subjectMark":"00100000000000000000000000000000000000000000000000","typeStr":null,"customerSubjectExtend":null,"realNameChannel":1,"realNameChannelStr":null,"subjectCreateType":2,"systemChannel":1,"isJdSupport":0},{"id":4,"subjectNo":"KH00000000002","subjectName":"江苏省东台市天成酒业有限公司","parentNo":null,"subjectShort":"天成酒业","type":1,"status":2,"socialCreditCode":"898121332","legalPerson":null,"registeredCapital":"11","industryNo":"6,7,8","industryName":"服装","contacts":"李省","mobile":"18501263589","email":"test@163.com","address":"北京市大兴区亦庄经济开发区朝林广场A座17层","remark":"测试","createTime":1533550119000,"updateTime":1536057956000,"createUser":"bjlxdong","updateUser":"jianglongfei","yn":1,"blicScope":null,"blicValidityEnd":null,"blicUrlA":null,"occBankName":null,"occBankChildname":null,"occBankAccount":null,"lepCardType":null,"lepCardNo":null,"lepValidityEnd":null,"lepUrlA":null,"lepUrlB":null,"aupCardType":null,"aupName":null,"aupCardNo":null,"aupValidityEnd":null,"aupUrlA":null,"aupUrlB":null,"subjectRequireLevel":null,"merRealStatus":0,"jrType":null,"subjectMark":"00000000000000000000000000000000000000000000000000","typeStr":null,"customerSubjectExtend":null,"realNameChannel":1,"realNameChannelStr":null,"subjectCreateType":2,"systemChannel":1,"isJdSupport":0},{"id":6,"subjectNo":"KH00000000004","subjectName":"江苏省乌龙茶","parentNo":null,"subjectShort":"乌龙茶1","type":1,"status":2,"socialCreditCode":"121221","legalPerson":"江海东","registeredCapital":"311万","industryNo":"5,10","industryName":"服装,医药","contacts":"李金额","mobile":"153021555122","email":"test@163.com","address":"东台市台南公路北弯口苏中大厦便民店","remark":"测试1","createTime":1533364544000,"updateTime":1561452741000,"createUser":"bjlxdong","updateUser":"bjlxdong","yn":1,"blicScope":null,"blicValidityEnd":null,"blicUrlA":null,"occBankName":null,"occBankChildname":null,"occBankAccount":null,"lepCardType":null,"lepCardNo":null,"lepValidityEnd":null,"lepUrlA":null,"lepUrlB":null,"aupCardType":null,"aupName":null,"aupCardNo":null,"aupValidityEnd":null,"aupUrlA":null,"aupUrlB":null,"subjectRequireLevel":"null,4","merRealStatus":0,"jrType":null,"subjectMark":"00000000000000000000000000000000000000000000000000","typeStr":null,"customerSubjectExtend":null,"realNameChannel":1,"realNameChannelStr":null,"subjectCreateType":2,"systemChannel":1,"isJdSupport":0},{"id":4004000000621,"subjectNo":"KH4004000000621","subjectName":"江苏","parentNo":null,"subjectShort":null,"type":null,"status":null,"socialCreditCode":null,"legalPerson":null,"registeredCapital":null,"industryNo":null,"industryName":null,"contacts":"张三","mobile":"18736761189","email":null,"address":null,"remark":null,"createTime":1565069876000,"updateTime":1565074432000,"createUser":"lmall-rest","updateUser":null,"yn":1,"blicScope":null,"blicValidityEnd":null,"blicUrlA":null,"occBankName":null,"occBankChildname":null,"occBankAccount":null,"lepCardType":null,"lepCardNo":null,"lepValidityEnd":null,"lepUrlA":null,"lepUrlB":null,"aupCardType":null,"aupName":null,"aupCardNo":null,"aupValidityEnd":null,"aupUrlA":null,"aupUrlB":null,"subjectRequireLevel":"null,2,2","merRealStatus":0,"jrType":null,"subjectMark":null,"typeStr":null,"customerSubjectExtend":null,"realNameChannel":1,"realNameChannelStr":null,"subjectCreateType":1,"systemChannel":5,"isJdSupport":null},{"id":4004000000624,"subjectNo":"KH4004000000624","subjectName":"江苏物流","parentNo":null,"subjectShort":null,"type":1,"status":1,"socialCreditCode":"378726761892676587","legalPerson":"张宇","registeredCapital":null,"industryNo":null,"industryName":null,"contacts":null,"mobile":null,"email":null,"address":"西三旗","remark":null,"createTime":1565082211000,"updateTime":1565082211000,"createUser":null,"updateUser":null,"yn":1,"blicScope":"QQ","blicValidityEnd":"","blicUrlA":"A2_1908_25_442_7302E13_RAS@27ec5fab826e9b5579","occBankName":"招商银行","occBankChildname":"招商银行股份有限公司济南分行","occBankAccount":"5387451679256387","lepCardType":"ID","lepCardNo":"411424199311105038","lepValidityEnd":"","lepUrlA":"A2_1908_25_443_0302E13_RAS@79574dd57618a61cf6","lepUrlB":"A1_1908_253_308_0E736D6_RAS@9c2f5e872464f6ffc7","aupCardType":"ID","aupName":"张宇","aupCardNo":"411424199311105038","aupValidityEnd":"","aupUrlA":"A2_1908_25_443_0302E13_RAS@79574dd57618a61cf6","aupUrlB":"A2_1908_25_443_0302E13_RAS@79574dd57618a61cf6","subjectRequireLevel":"1","merRealStatus":0,"jrType":null,"subjectMark":null,"typeStr":null,"customerSubjectExtend":null,"realNameChannel":1,"realNameChannelStr":null,"subjectCreateType":2,"systemChannel":1,"isJdSupport":0},{"id":4004000000630,"subjectNo":"KH4004000000630","subjectName":"江苏物流","parentNo":null,"subjectShort":null,"type":1,"status":2,"socialCreditCode":"864763567287196473","legalPerson":"张宇","registeredCapital":null,"industryNo":null,"industryName":null,"contacts":null,"mobile":null,"email":null,"address":"西三旗","remark":null,"createTime":1565142886000,"updateTime":1565143635000,"createUser":null,"updateUser":"京东数科","yn":1,"blicScope":"悦秀路","blicValidityEnd":"","blicUrlA":"A1_1908_267_64_1E736D6_RAS@2bce8a4d639f7e96cb","occBankName":"招商银行","occBankChildname":"招商银行股份有限公司呼和浩特分行","occBankAccount":"6374826354782635","lepCardType":"ID","lepCardNo":"411424199711105038","lepValidityEnd":"","lepUrlA":"A1_1908_267_64_1E736D6_RAS@2bce8a4d639f7e96cb","lepUrlB":"A1_1908_267_64_1E736D6_RAS@2bce8a4d639f7e96cb","aupCardType":"ID","aupName":"张三","aupCardNo":"411424199711105038","aupValidityEnd":"","aupUrlA":"A1_1908_267_64_1E736D6_RAS@2bce8a4d639f7e96cb","aupUrlB":"A1_1908_267_64_1E736D6_RAS@2bce8a4d639f7e96cb","subjectRequireLevel":"1,2","merRealStatus":4,"jrType":null,"subjectMark":null,"typeStr":null,"customerSubjectExtend":null,"realNameChannel":1,"realNameChannelStr":null,"subjectCreateType":2,"systemChannel":1,"isJdSupport":0}]
+    console.log("init")
+
+
+});
+</script>
+
+</html>

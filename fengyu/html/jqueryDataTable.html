@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--第一步：引入Javascript / CSS （CDN）-->
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+ 
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+ 
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+</head>
+<body>
+	<table id="example" class="display">
+<!--     <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody> -->
+</table>
+</body>
+<script type="text/javascript">
+	    var data = [
+        {
+            "name":       "Tiger Nixon",
+            "position":   "System Architect",
+            "salary":     "$3,120",
+            "start_date": "2011/04/25",
+            "office":     "Edinburgh",
+            "extn":       "5421"
+        },
+        {
+            "name":       "Garrett Winters",
+            "position":   "Director",
+            "salary":     "$5,300",
+            "start_date": "2011/07/25",
+            "office":     "Edinburgh",
+            "extn":       "8422"
+        }
+    ];
+        //object可以如下初始化表格
+    $('#example').DataTable( {
+        data: data,
+        paging: false,
+        scrollY: 400,
+        bInfo:false,
+        //使用对象数组，一定要配置columns，告诉 DataTables 每列对应的属性
+        //data 这里是固定不变的，name，position，salary，office 为你数据里对应的属性
+        columns: [
+            { data: 'name' },
+            { data: 'position' },
+            { data: 'salary' },
+            { data: 'office' }
+        ]
+
+    } );
+</script>
+</html>
