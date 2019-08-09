@@ -563,3 +563,11 @@ If you compile this program, you'll get an unckecked cast warning. This warning 
 A legitimate, if rare, use of relection is to manage a class's dependencies on other classes, methods, or fields that may be absent at runtime. This can be useful if you are writing a package that must be absent at runtime. This can be useful if you are writing a package that must run against multiple versions of some other package. The technique is to compile your pakcage against the minimal environment required to support it, typically the oldest version, and to access any newer classes or methods reflectively. To make this work, you have to take appropirate action if a newer class or method that you are attempting to access does not exist at runtime. Appropriate action might consist of using some alternate means to accomplish the same goal or operating with reduced functionality.
 
 In summary, relection is a powerful facility that is required for certian sophisticated system programming tasks, but it has many disadvantages. If you are writing a program that has to work with classes unknown at compile time, you should, if at all possilbe, use reflection only to instantiate objects, and access the objects using some interface or superclass that is known at compile time.
+
+#### Item 66： Use native methods judiciously
+
+The Java Native Interface(JNI) allows Java programs to call native methods, which are methods written in native programming languages such as C or C++. Historical, native methods have had three main uses. They provide access to platform-specific facilities such as registries. They provide access to existing libraries of native code, including legacy libraries that provide access to legacy data. Finally, native methods are used to write performance-critical parts of applications in native languages for improved performance.
+
+It is legitimate to use native methods to access platform-specific facilites, but it is seldom necessary: as the Java platform matured, it provided access to many features perviously found only in host platform. For example, the process API, add in java 9, provides access to OS processes. It is also legitimate to use native methods to use native libraries when no equivalent libraries are available in java.
+
+It is rarely adivsable to use native methods for improved performance. In early releases(perior to java 3)
