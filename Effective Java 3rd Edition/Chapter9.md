@@ -566,10 +566,34 @@ In summary, relection is a powerful facility that is required for certian sophis
 
 #### Item 66： Use native methods judiciously
 
-The Java Native Interface(JNI) allows Java programs to call native methods, which are methods written in native programming languages such as C or C++. Historical, native methods have had three main uses. They provide access to platform-specific facilities such as registries. They provide access to existing libraries of native code, including legacy libraries that provide access to legacy data. Finally, native methods are used to write performance-critical parts of applications in native languages for improved performance.
+The Java Native Interface(JNI) allows Java programs to call native methods, which are methods written in native programming languages such as C or C++. Historically, native methods have had three main uses. They provide access to platform-specific facilities such as registries. They provide access to existing libraries of native code, including legacy libraries that provide access to legacy data. Finally, native methods are used to write performance-critical parts of applications in native languages for improved performance.
 
 It is legitimate to use native methods to access platform-specific facilites, but it is seldom necessary: as the Java platform matured, it provided access to many features perviously found only in host platform. For example, the process API, add in java 9, provides access to OS processes. It is also legitimate to use native methods to use native libraries when no equivalent libraries are available in java.
 
-It is rarely adivsable to use native methods for improved performance. In early releases(perior to java 3),it was necessary, but jVMs have gotten much faster since then. For most tasks, it is now possible to obtain comparable performance in Java. For example, when java.math was added in release 1.1, BigInteger was reimplemented in Java, and carefully tuned to the point where it ran faster than the original native implementation.
+**It is rarely adivsable to use native methods for improved performance.** In early releases(perior to java 3), it was necessary, but jVMs have gotten much faster since then. For most tasks, it is now possible to obtain comparable performance in Java. For example, when java.math was added in release 1.1,BigInteger relied on a then-fast multiprecision arithmetic libarary in C. In java 3, BigInteger was reimplemented in Java, and carefully tuned to the point where it ran faster than the original native implementation.
+
+A sad coda to this story is that BigInteger has changed little since then, with the excepiton of faster multiplication for large numbers in java 8. In that time, work continued apace on native libraries, notably GNU Multiple Precision arithmetic library(GMP). Java programmers in need of truly high-performance multiprecision artimetic are now justified in using GMP via native methods[Blum14].
+
+The use of native methods has serious disadvantages. Beacuse native languages are not safe(Item 50), applications using native methods are no longer immune to memory corruption errors. Beacuse native languages are more platform-dependent than Java, programs using native methods can decrease performance because the garbage collector can't automate, or even track, native memory usage(Item 8), and there is a cost associated with going into and out of native code. Finally, native methods require "glue code" that is difficult to read and tedious to wirte.
+
+In summary, think twice before using native methods. It is rare that you need to use them for imporved performance. If you must use native methods to access low-level resources or native libraries, use as little nativve code as possible and test in thoroughly. A single bug in the native code can corrupt your entire application.
 
 
+#### Optimize judiciously
+
+There are three aphorisms concerning optimization that everyone should know:
+
+> More computing sins are commmited in the name of efficiency(without necessary achieving it) than for any other single reason - including blind stupidity.
+
+> We should forget about small efficiencies, say about 97% of the time: premature
+optimization is the root of all evil.
+
+> We follow two rules in the matter of optimization:
+Rule 1. Don't do it.
+Rule 2. (for experts only). Don't do it yet - that is , not until you have a perfect clear and unoptimized solution.
+
+All of these aphorisms predate the Java programming language by two decades. They tell a deep truth about optimization: it is easy to do more harm than goods, especially of you optimize prematurely. In the process, you may produce software that is neither fast or correct and cannot easily be fixed.
+
+Don't sacrifice sound architectural principles for performance.**Strive to write good programs rather than fast ones.** If a good program is not fast enough, its architecture will allow it to be optimized. Good programs embody the principle of information hiding: where possible, they localize design decisions within individual components, so individual decisions can be changed without affecting the reminder of the system(Item 15).
+
+This does not mean that you can ignore performance concerns until your program is complete. Implementation problems can be fixed by later optimizaiton, but pervasive architectual flaws that limit performance can be impossible to fix without rewriting the system. Changing a fundamental facet of your design after the fact can result in an ill-strutured system that is difficult to maintain and evole. Therefore you must think about performance during the design process.
