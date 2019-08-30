@@ -16,40 +16,39 @@
                             <option value="">请选择</option>
                             <option value="2">JTMS</option>
                             <option value="6">京东快运</option>
-                    </select>   
-					<select class="form-control {required:true,messages:{required: '必选项'}}" id="b2bLwbAdd_ship" name="perform_system" style="width: 200px;">
-                            
-                    </select>
-                       <td>
-                        <label><input type="radio"  name="b2bLwbAdd_deliveryType"  value="1" onclick="changeZero();" checked>零担&nbsp;&nbsp;</label>
-                        <label><input type="radio"  name="b2bLwbAdd_deliveryType" value="2" onclick="changeTotalCar();">整车&nbsp;&nbsp;</label>
-                        <label><input type="radio"  name="b2bLwbAdd_deliveryType"  value="5" onclick="changeLlZero();">冷链零担&nbsp;&nbsp;</label>
-                        <label><input type="radio"  name="b2bLwbAdd_deliveryType" value="4" onclick="changeLlTotalCar();">冷链整车</label>
-                    </td>
+</select>
+<select class="form-control {required:true,messages:{required: '必选项'}}" id="b2bLwbAdd_ship" name="perform_system" style="width: 200px;">
+</select>
+<td>
+    <label><input type="radio" name="b2bLwbAdd_deliveryType" value="1" onclick="changeZero();" checked>零担&nbsp;&nbsp;</label>
+    <label><input type="radio" name="b2bLwbAdd_deliveryType" value="2" onclick="changeTotalCar();">整车&nbsp;&nbsp;</label>
+    <label><input type="radio" name="b2bLwbAdd_deliveryType" value="5" onclick="changeLlZero();">冷链零担&nbsp;&nbsp;</label>
+    <label><input type="radio" name="b2bLwbAdd_deliveryType" value="4" onclick="changeLlTotalCar();">冷链整车</label>
+</td>
 
 </body>
 <script type="text/javascript">
 	let a = 3;
 	$(function(){
 			$("#b2bLwbAdd_performSystem").change(function(event) {
-				a = 4
-				if($(this).val())
+				// a = 4
+				console.log("jhah")
+				// if($(this).val())
 				console.log($(this).val());
 
 			});
-			$.getJSON( flickerAPI, {
-			   tags: "mount rainier",
-			   tagmode: "any",
-			   format: "json"
-			 })
-			   .done(function( data ) {
-			     $.each( data.items, function( i, item ) {
-			       $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-			       if ( i === 3 ) {
-			         return false;
-			       }
-			     });
-			   });
+			// $.getJSON( flickerAPI, {
+			//    tags: "mount rainier",
+			//    tagmode: "any",
+			//    format: "json"
+			//  }).done(function( data ) {
+			//      $.each( data.items, function( i, item ) {
+			//        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+			//        if ( i === 3 ) {
+			//          return false;
+			//        }
+			//      });
+			//    });
 		
 	});
 	var data = {

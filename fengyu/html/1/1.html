@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+</head>
+
+<body>
+    <!-- 通过data-provide="typeahead"来声明这是一个typeahead组件 -->
+    <!-- 通过data-source=来提供数据 -->
+    <!-- <input type="text" data-provide="typeahead" autocomplete="off" id="input"> -->
+    <select type="text" class="form-control" id="querySubjectName" name="queryPartnerName"></select>
+    <input list="cars" id="carlist">
+    <datalist id="cars">
+        <option value="BMW">宝马</option>
+        <option value="Ford">
+        <option value="Volvo">
+    </datalist>
+    <input id="selected" list="browsers" name="browser">
+    <datalist id="browsers">
+        <option data-value="InternetExplorer" value="IE浏览器"></option>
+        <option data-value="Firefox" value="火狐浏览器"></option>
+        <option data-value="Chrome" value="谷歌浏览器"></option>
+        <option data-value="Opera" value="opera浏览器"></option>
+        <option data-value="Safari" value="safari浏览器"></option>
+    </datalist>
+    <input id="submit" type="submit">
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+    var dataSource = ['军工', '高校', '煤化工', '新能源', '节能环保', 'AB股', 'AH股', 'HS300'];
+    $("#querySubjectName").typeahead({
+        // source: dataSource, // 数据源
+        source: [
+            { id: "id1", name: "jQuery" },
+            { id: "id2", name: "Script" },
+            { id: "id3", name: "Net" }
+        ]
+    });
+    debugger;
+    var data = {};
+    $("#browsers option").each(function(i, el) {
+        data[$(el).data("value")] = $(el).val();
+    });
+    // `data` : object of `data-value` : `value`
+    console.log(data, $("#browsers option").val());
+
+
+    $('#submit').click(function() {
+        var value = $('#selected').val();
+        alert($('#browsers [value="' + value + '"]').data('value'));
+    });
+});
+</script>
+
+</html>

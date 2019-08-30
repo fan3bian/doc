@@ -570,4 +570,6 @@ The Java Native Interface(JNI) allows Java programs to call native methods, whic
 
 It is legitimate to use native methods to access platform-specific facilites, but it is seldom necessary: as the Java platform matured, it provided access to many features perviously found only in host platform. For example, the process API, add in java 9, provides access to OS processes. It is also legitimate to use native methods to use native libraries when no equivalent libraries are available in java.
 
-It is rarely adivsable to use native methods for improved performance. In early releases(perior to java 3)
+It is rarely adivsable to use native methods for improved performance. In early releases(perior to java 3),it was necessary, but jVMs have gotten much faster since then. For most tasks, it is now possible to obtain comparable performance in Java. For example, when java.math was added in release 1.1, BigInteger was reimplemented in Java, and carefully tuned to the point where it ran faster than the original native implementation.
+
+
