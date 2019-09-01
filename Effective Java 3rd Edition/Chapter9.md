@@ -489,7 +489,6 @@ So why would you want to change an implementation type? Beacuse the second imple
 
 You might think it's OK to declare a variable using its implementation type, because you can change the declarationn type and the implementation type at the same time, but there is no guarantee that this change will result in a program that compiles. If the client code used methods on the original implementation type; then the code will no longer complie after making this change. Declaring the variable with the interface keeps you honest.
 
-<<<<<<< HEAD
 **It is entirely appropriate to refer to an object by a class rather than an interface if no appropriate interface exists.** For example, consider value class, such as String and BigInteger.
 
 #### Item 65: Perfer interfaces to reflection
@@ -532,7 +531,6 @@ In summary, relection is a powerful facility that is required for certain sophis
 #### Item 66: Use native methods judiciously
 
 The Java Native Interface (JNI) allows Java programs to call native methods, which are methods written in native programming languages such C or C++. Historically, native methods have three main uses. They provide access to platform-specific facilities such registers. They
-=======
 **It is entirely appropriate to refer to an object by a class rather than an interface if no appropriate interface exists.** For example, consider value class, such as String and BigInteger. Value classes are rarely written with multiple implementations in mind. They are often final and rarely have corresponding interfaces. It is perfectly appropriate to use such a value class as a parameter, variable, field, or return type.
 
 A second case in which there is no appropriate interface type is taht of objects belonging to a framework whose fundamental type are classes rather than interfaces. If an object belongs to such a class-based framework, it is preferable to refer to it by the relevant base class, which is often abstarct, rather than by its implementation class. Many java.io classes such as OutputStream fall into this category.
@@ -668,7 +666,3 @@ In the nearly two decades since this item was first written, every component of 
 
 To summarize, do not strive to write fast programs -- strive to wirte good ones; speed will follow. But do think about performance while you're designing systems, especially while you're disigning APIs, wire-level protocls, and persistent data formats. When you've finished building the system, measure its performance. If it's fast enough, you're done. If not, locate the source of the problem with the aid of a profiler and go to work optimizing the relevant parts of the system. The first step is to examine your choice of algorithm. Repeat this process as necessary, measuring the performance after every change, until you're satisfied.
 
-
-
-
->>>>>>> f0029b647feb1cbf3ad32f3d1a3fb98db6f2f0e8
