@@ -436,7 +436,7 @@ This is, roughly speaking, the API that java.lang.ThreadLocal provides. In addit
 
 To summarize, avoid the natural tendency to represnet objects as strings when better data types exist or can be written. Used inappropriately, strings are more cumbersome, less flexible, slower, and more error-prone than other types. Types for wihch string are commonly miused include primitive types, enums, and aggregate types.
 
-#### Beware the performance of string concatenation
+#### Item 63: Beware the performance of string concatenation
 
 The string concatenation operator(+) is a convenient way to combine a few strings into one. It is fine for generating a single line of output or constructing the string representation of a small, fiexd-size object, but it does not scale. **Using the string concatenation opreator repeatedly to concatenate n strings requires time quadratic in n.** This is an unfortunate consequence of the fact that strings are immutable(Item 17). When two strins are concatenated, the contents of both are copied.
 
@@ -489,6 +489,7 @@ So why would you want to change an implementation type? Beacuse the second imple
 
 You might think it's OK to declare a variable using its implementation type, because you can change the declarationn type and the implementation type at the same time, but there is no guarantee that this change will result in a program that compiles. If the client code used methods on the original implementation type; then the code will no longer complie after making this change. Declaring the variable with the interface keeps you honest.
 
+<<<<<<< HEAD
 **It is entirely appropriate to refer to an object by a class rather than an interface if no appropriate interface exists.** For example, consider value class, such as String and BigInteger.
 
 #### Item 65: Perfer interfaces to reflection
@@ -531,3 +532,143 @@ In summary, relection is a powerful facility that is required for certain sophis
 #### Item 66: Use native methods judiciously
 
 The Java Native Interface (JNI) allows Java programs to call native methods, which are methods written in native programming languages such C or C++. Historically, native methods have three main uses. They provide access to platform-specific facilities such registers. They
+=======
+**It is entirely appropriate to refer to an object by a class rather than an interface if no appropriate interface exists.** For example, consider value class, such as String and BigInteger. Value classes are rarely written with multiple implementations in mind. They are often final and rarely have corresponding interfaces. It is perfectly appropriate to use such a value class as a parameter, variable, field, or return type.
+
+A second case in which there is no appropriate interface type is taht of objects belonging to a framework whose fundamental type are classes rather than interfaces. If an object belongs to such a class-based framework, it is preferable to refer to it by the relevant base class, which is often abstarct, rather than by its implementation class. Many java.io classes such as OutputStream fall into this category.
+
+A final case in which there is no appropriate interface type is that of classes that implement an interface but also provide extra methods not found in the interface - for example, PriorityQueue has a comparator method that is not present on the Queue interface. Such a class should be used to refer to ists instances only if the program relies on the extra methods, and this should be very rare.
+
+There three cases are not meant to be exhaustive but merely to convery the flavor of situations where it is appropriate to refer to an object by its class. In practice, it should be apparent whether a given object has an appropriate interface.If it does, your program will be more flexible and stylish if you use the interface to refer to the object. **If there is no appropriate interface, just use the least specific class in the class hierarchy that provides the required functionality.**
+
+#### Item 65: Perfer interfaces to reflection
+
+The core reflection facility, java.lang.reflect, offers programming access to arbitrary classes. Given a Class object, you can obtain Constructor, Method, and Field instances representing the constructors, methods, and fields of the class repersented by the Class instance. These objects provide programmatic access to the class's member names, field types, method signatures, and so on.
+
+Moreover, Constructor, Method, and Field instances let you manipulate theire underlying counterparts relection: you can construct instances reflectively: you can construct instances, invoke methods, and access fields of the underlying class by invoking methods on the Constructor, Methods, and Field instances. For example, Method.invoke lets you invoke any method on any object of any class(subject to the usual security constraints). Reflection allows one class to use another, even if the latter class dit not exist when the former was compiled.This power, however, comes at a price:
+
+- **You lose all the benefits of compile-time type checking,** including exception checking. If a program attempts to invoke a nonexistent or inaccessible method reflectively, it will fail at runtime unless you've taken special precautions.
+
+- **The code required to perform reflective access is clumsy and verbose.** It is tedious to write and difficult to read.
+
+- **Performance suffers.**Reflective method invocation is much slower than normal method invocation. Exactly how much slower is hard to say, as there are many factors at work. On my machine, invoking a method with no input parameters and an int return was eleven times slower when done reflectively.
+
+There are a few sophisticated applications that require relfection. Examples include code analysis tools and depnedency injection frameworks. Even such tools have been moving away from relection of late, as its disadvantages become clearer. If you have any doubts as to whether your application requires relfection, it probably doesn't.
+
+**You can obtain many of the benefits of reflection while incurring few of its costs by using it only in a very limited form.** For many programs that must use a class that is unavailable at compile time, there exists at compile time an appropriate interface or superclass by which to refer to the class. If this is the case, you can create instances reflectively and access them normally via their interface or superclass.
+
+For example, here is a program that creates a Set<String> instance whose class is specified by the first command line argument. The program inserts the remaining command line arguments into the set and prints it. Regardless of the frist argument, the program prints the remaining arguments with duplicates eliminated. The order in which these arguemnts are printed, however, depends on the class specified in the first argument. If you specify java.util.HashSet, they're printed in apparently random order; if you specify java.util.TreeSet, they're printed in alphabetical order because the elemetns in a TreeSet are sorted:
+```java
+// Reflective instantiation with interface access
+public static void main(String[] args) {
+	//Translate the class name into a Class object
+	Class<? extends Set<String>> cl = null;
+	try {
+		cl = (Class<? extends Set<String>>) Class.forName(args[0]);//Unchecked cast!
+	} catch (ClassNotFoundException e) {
+		fatalError("Class not found.");
+	}
+	//Get the constructor
+	Constructor<? extends Set<String>> cons = null;
+	try {
+		cons = cl.getDeclaredConstructor();
+	} catch (NoSuchElementException e) {
+		fatalError("Class not found.");
+	}
+	//Instantiate the set
+	String<Set> s = null;
+	try {
+		s = cons.newInstance();
+	} catch (IllegalAccessException e) {
+		fatalError("Constructor not accessible");
+	} catch (InstantiationException e) {
+		fatalError("Class not instantible.");
+	} catch (InvocationTargetException e) {
+		fatalError("Constructor threw " + e.getCause());
+	} catch (ClassCastException e) {
+		fatalError("Class doestn't implemtn Set");
+	}
+	// Exercise the set
+	s.addAll(Arrays.asList(args).subList(1,args.length));
+	System.out.println(s);
+}
+private static void fatalError(String msg) {
+	System.err.println(msg);
+	System.exit(1);
+}
+```
+While this program is just a toy, the technique it demonstrates is quite powerful. The toy program could easily be returned into a generic set tester that validates the specified Set implementation by aggressively manipulating one or more instances and checking that they obey the Set constract. Similarly, it could be turned into a generic set performance analysis tool. In fact, this technique is sufficiently powerful to implement a full-blown *service provider framework*(Item 1). Usually, this technique is all that you need in the way of reflection.
+
+This example demonstrates two disadvantages of relfection. First, the example can generate six different exceptions at runtime, all of which would have been compile-time
+errors if reflective instantiation were not used. (For fun, you can cause the program to generate each of the six exceptions by passing in appropriate command line arguments.) The second disavantage is that it takes twenty-five lines of tedious code to generate an instance of the class from its name, whereas a constructor invocation would fit neatly on a single line. The length of the program could be reduced by catching ReflectiveOperationException, a superclass of the various reflective exceptions that was introduced in Java 7. Both disavantages are restricted to the part of the program that instantiates the object. Once instantiated, the set is indistinguishable from any other Set instance. In a real program, the great bukl of the ocde thus unaffected by this limited use of relection.
+
+If you compile this program, you'll get an unckecked cast warning. This warning is legitimate, in that the cast to <Class? extends Set<String>> will succeed even if the named class is not Set implementation, in which case the program with throw a ClassCastException when it instantiates the class. To learn about suppressing the warning, read Item 27.
+
+A legitimate, if rare, use of relection is to manage a class's dependencies on other classes, methods, or fields that may be absent at runtime. This can be useful if you are writing a package that must be absent at runtime. This can be useful if you are writing a package that must run against multiple versions of some other package. The technique is to compile your pakcage against the minimal environment required to support it, typically the oldest version, and to access any newer classes or methods reflectively. To make this work, you have to take appropirate action if a newer class or method that you are attempting to access does not exist at runtime. Appropriate action might consist of using some alternate means to accomplish the same goal or operating with reduced functionality.
+
+In summary, relection is a powerful facility that is required for certian sophisticated system programming tasks, but it has many disadvantages. If you are writing a program that has to work with classes unknown at compile time, you should, if at all possilbe, use reflection only to instantiate objects, and access the objects using some interface or superclass that is known at compile time.
+
+#### Item 66： Use native methods judiciously
+
+The Java Native Interface(JNI) allows Java programs to call native methods, which are methods written in native programming languages such as C or C++. Historically, native methods have had three main uses. They provide access to platform-specific facilities such as registries. They provide access to existing libraries of native code, including legacy libraries that provide access to legacy data. Finally, native methods are used to write performance-critical parts of applications in native languages for improved performance.
+
+It is legitimate to use native methods to access platform-specific facilites, but it is seldom necessary: as the Java platform matured, it provided access to many features perviously found only in host platform. For example, the process API, add in java 9, provides access to OS processes. It is also legitimate to use native methods to use native libraries when no equivalent libraries are available in java.
+
+**It is rarely adivsable to use native methods for improved performance.** In early releases(perior to java 3), it was necessary, but jVMs have gotten much faster since then. For most tasks, it is now possible to obtain comparable performance in Java. For example, when java.math was added in release 1.1,BigInteger relied on a then-fast multiprecision arithmetic libarary in C. In java 3, BigInteger was reimplemented in Java, and carefully tuned to the point where it ran faster than the original native implementation.
+
+A sad coda to this story is that BigInteger has changed little since then, with the excepiton of faster multiplication for large numbers in java 8. In that time, work continued apace on native libraries, notably GNU Multiple Precision arithmetic library(GMP). Java programmers in need of truly high-performance multiprecision artimetic are now justified in using GMP via native methods[Blum14].
+
+The use of native methods has serious disadvantages. Beacuse native languages are not safe(Item 50), applications using native methods are no longer immune to memory corruption errors. Beacuse native languages are more platform-dependent than Java, programs using native methods can decrease performance because the garbage collector can't automate, or even track, native memory usage(Item 8), and there is a cost associated with going into and out of native code. Finally, native methods require "glue code" that is difficult to read and tedious to wirte.
+
+In summary, think twice before using native methods. It is rare that you need to use them for imporved performance. If you must use native methods to access low-level resources or native libraries, use as little nativve code as possible and test in thoroughly. A single bug in the native code can corrupt your entire application.
+
+
+#### Optimize judiciously
+
+There are three aphorisms concerning optimization that everyone should know:
+
+> More computing sins are commmited in the name of efficiency(without necessary achieving it) than for any other single reason - including blind stupidity.
+
+> We should forget about small efficiencies, say about 97% of the time: premature
+optimization is the root of all evil.
+
+> We follow two rules in the matter of optimization:
+Rule 1. Don't do it.
+Rule 2. (for experts only). Don't do it yet - that is , not until you have a perfect clear and unoptimized solution.
+
+All of these aphorisms predate the Java programming language by two decades. They tell a deep truth about optimization: it is easy to do more harm than goods, especially of you optimize prematurely. In the process, you may produce software that is neither fast or correct and cannot easily be fixed.
+
+> 
+Don't sacrifice sound architectural principles for performance.**Strive to write good programs rather than fast ones.** If a good program is not fast enough, its architecture will allow it to be optimized. Good programs embody the principle of information hiding: where possible, they localize design decisions within individual components, so individual decisions can be changed without affecting the reminder of the system(Item 15).
+
+This does not mean that you can ignore performance concerns until your program is complete. Implementation problems can be fixed by later optimizaiton, but pervasive architectual flaws that limit performance can be impossible to fix without rewriting the system. Changing a fundamental facet of your design after the fact can result in an ill-strutured system that is difficult to maintain and evole. Therefore you must think about performance during the design process.
+
+> 
+
+**Strive to avoid design decisions that limit performance.** The components of a design that are most difficult to change after the fact are those specifiying interactions between components are APIs, wire-level protocols, and persistent data formats. Not only are these design components difficult or impossible to change after the fact, but all of them can place significant limitations on the performance that a system can ever achieve.
+
+**Consider the performance consequences of your API design decisions.** Making a pulbic type mutable may require a lot of needless defensive copying (Item 50). Similarly, using inheritance in a public class where composition would have been appropriate ties the class forever to its superclass, which can place artifical limits on the performance of the subclass(Item 18). As a final example, using an implementation type rather tha an interface in an API ties you to a specific implementation, even though faster implementations may be written in the future(Item 64).
+
+The effects of API design on performance are very real. Consider the getSize method in the java.awt.Component class. The decision that this performance-critical method was return a Dimension instance, coupled with the decision that Dimension instances are mutable, forces any implementation of this method to allocate a new Dimension instance on every invocation. Even though allocating small objects is inexpensive on a modern VM, allocating millions of objects needlessly can do real harm to performance.
+
+Several API design alternatives existed. Ideally, Dimension should have been immutable(Item 17); alternatively, getSize could have been replaced by two methods returning the individual primitive components of a Dimension object. In fact, two such methods were added to Component in Java 2 for performance reasons. Preexisting client code, however, still uses the getSize method and still suffers the performance consequences of the original API design decisions.
+
+Luckily, it is generally the case the good API design is consistent with good performance. **IT is a very bad idea to warp an API to achieve good performance.**
+The performance issue that caused you to warp the API may go away in a future release of the platform or other underlying software, but th warped API and the support headaches that come with it will be with you forever.
+
+Once you've carefully designed your program and produced a clear, concise, and well-structured implementation, then it may be time to consider optimization, assuming you're not already statified with the performance of the program.
+
+Recall the Jackson's two rules of optimization ware "Don't do it" and "(for experts only). Don't do it yet." He could have added one more: **measure performance beofre and after each attempted optimization.** You may be surprised by what you find. Often, attempted optimizations have no measurable effect on performance; sometimes, they make it worse. The main reason is that it's difficult to guess where your program is spending its time. The part of the program that you think is slow may not be fault, in which case you'd be wasting your time trying to optimize it. Common wisdom says that programs spend 90 percent of their time in 10 percent of their code.
+
+Profiling tools can help you decide where to focus your optimization efforts. These tools give you runtime information, such as roughly how much time each method is consuming and how many times it is invoked. In addition to focusing your tuning efforts, this can alert you to the need for algorithmic changes. If a quardratic(or worse) algorithm lurks inside your program, no amuout of tuning will fix the problem. You must replace the algorithm with one that is more efficient. The more code the system, the more important it is to use a profiler. It's like looking for a needle in a haystack: the bigger the haystack, the more useful it is to have a metal detector. Another tool that deserves special mention in jmh, which is not a profiler but a microbenchmarking framework that provides unparalleled visibility into the detailed performance of Java code [JMH].
+
+The need to measure the effects of attempted optimization is even greater in Java than in more traditional languages such as C and C++, beacuse Java has a weaker performance model: The relative cost of the various primitive operations is less well defined. The "abstraction gap" betwwen what the programer writes and what the CPU executes is greater, which makes it even more difficult to reliably predict the performance consequences of optimizations. There are plenty of perfomance myths floating around that turn out to be half-truths or outright lies.
+
+In the nearly two decades since this item was first written, every component of the Java software stack has grown in complexity, from processors to VMs to libraries, and the variety of handware on which Java runs has grown immensely. All of this has combined to make the perfomance of Java programs even less predictable now than it was in 2001, with a corresponding increase in the need to meassure it.
+
+To summarize, do not strive to write fast programs -- strive to wirte good ones; speed will follow. But do think about performance while you're designing systems, especially while you're disigning APIs, wire-level protocls, and persistent data formats. When you've finished building the system, measure its performance. If it's fast enough, you're done. If not, locate the source of the problem with the aid of a profiler and go to work optimizing the relevant parts of the system. The first step is to examine your choice of algorithm. Repeat this process as necessary, measuring the performance after every change, until you're satisfied.
+
+
+
+
+>>>>>>> f0029b647feb1cbf3ad32f3d1a3fb98db6f2f0e8
