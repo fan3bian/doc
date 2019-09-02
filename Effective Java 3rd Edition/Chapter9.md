@@ -621,7 +621,7 @@ The use of native methods has serious disadvantages. Beacuse native languages ar
 In summary, think twice before using native methods. It is rare that you need to use them for imporved performance. If you must use native methods to access low-level resources or native libraries, use as little nativve code as possible and test in thoroughly. A single bug in the native code can corrupt your entire application.
 
 
-#### Optimize judiciously
+#### Item 67: Optimize judiciously
 
 There are three aphorisms concerning optimization that everyone should know:
 
@@ -666,3 +666,28 @@ In the nearly two decades since this item was first written, every component of 
 
 To summarize, do not strive to write fast programs -- strive to wirte good ones; speed will follow. But do think about performance while you're designing systems, especially while you're disigning APIs, wire-level protocls, and persistent data formats. When you've finished building the system, measure its performance. If it's fast enough, you're done. If not, locate the source of the problem with the aid of a profiler and go to work optimizing the relevant parts of the system. The first step is to examine your choice of algorithm. Repeat this process as necessary, measuring the performance after every change, until you're satisfied.
 
+
+#### Item 68: Adhere to generally accepted naming conventions
+The Java platform has a well-established set of naming conventions, many of which are contained in *The Java Language Specification [JLS,6.1].* Loosely speaking, naming conventions fall into two categories: typographical and grammatical.
+
+There are only a handful of typographical naming conventions, covering packages, classes, interfaces, methods, fields, and type variables. You should rarely violate them and never without a very good reason. If an API violates these convertions, it may be difficult to use. If an implementation violates them, it may be difficult to maintain. In both cases, violations have the potential to confuse and irritate other programmers who work with the code and can cause faulty assumptions that lead to errors. The conventions are summarized in the term.
+
+Package and module names should be hierarchical with the components separated by periods. Components should consist of lowercase alphabetic characters and, rarely, digits. The name of any package that will be used outside your organization should begin with your origanization's internet domain name with the components reversed, for example, edu.cmu, com.google, org,eff. The standerd libraries and optional packages, whose names with java and javax, are exceptions to this rule. Users must not create packages or modules whose names begin with java or javax. Detialed rules for converting Internet domain names to package name perfixes can be found in the JLS[JLS, 6.1].
+
+The remainder of a package name should consist of one or more components describing the package. Components should be short, generally eight or fewer characters. Meaningful abbreviations are encouraged, for example, untl rather than utilities. Acronyms are acceptable, for example, awt. Components should generally consisit of a single word or abbreviation.
+
+Many packages have names with just one component in addition to the Internet domain name. Additional components are appropriate for large facilities whose size demands that they be broken up into an informal hierarchy. For example, the javax.util package has a rich hierarchy of packages with names such as java.util.concurrent.atmoic. Such packages are kunown as subpackages, although there is almost no linguistic supprot for package hierarchies.
+
+Class and interface names, including enum and annotation type names, should consist of one or more words, with the first letter of each word capitalized, for example, List or FutureTask. Abbreviations are to be avoided, expect for acronyms and certain common abbreviation like max and min. There is some disagreement as to whether acronms should be uppercase or have only therir first letter captitalized. While some programmers still use uppercase, a strong argument can be made in favor of capitalizing only the fisrt letter: even if multiple acronyms occur back-to-back, you can still tell where one word starts and the next word ends. Which class name would you rather see, HTTPURL or HttpUrl?
+
+Method and field names follow the same typographical conventions as class and interface names, except that the fist letter of a method or field name should be lowercase, for example, remove or ensureCapacity. If an acronym occurs as the first word of a method or field name, it should be lowercase.
+
+The sole excepiton to the previous rule concerns "constatn field", whose names should consist of one or more uppercase words separated by the undersoce character, for example, VALUES or NEGATIVE_INFINITY. A constant field is a static final field whose value is immutable. If a static final field has a primitive type or an immutable reference type(Item 17), then it is a constant field. For example, enum constants are constant fields. If a static final field has a mutable reference type, it can still be a constant field if the referenced object is immutable. Note that constant fields consistute the only recommended use of undersores.
+
+Local varialbe names have similar typographical nameing conventions to member names, except that abbreviations are permitted, as are individual characters and short sequences of characters whose meaning depends on the context in which they occur, for example, i, demon, houseNum. Input parameters are a specila kind of local variable. They should be named much more carefully than ordinary local variables, as their names are an integral part of their method's documentation.
+
+Type parameter names usually consist of a single letter. Most commonly it is one of these five: T for arbitrary type, E for the element type of a collection, K and V for the key and value types of a map, and X for an excepiton. The return type of a function is usually R. A sequence of arbitrary types can be T, U, V or T1, T2, T3.
+
+For quick reference, the following table shows examples of typographical conventions.
+
+Grammatical naming 
