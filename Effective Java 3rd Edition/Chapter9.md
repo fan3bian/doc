@@ -690,4 +690,20 @@ Type parameter names usually consist of a single letter. Most commonly it is one
 
 For quick reference, the following table shows examples of typographical conventions.
 
-Grammatical naming 
+Grammatical naming conventions are more flexible and more controversial than typographical conventions. There are no grammatical naming conventions to speak of for packages. Instantiable classes, including enum types, are generally named with a singular noun or noun phrase, such as Thread, PriorityQueue, or ChessPiece. Non-instantiable utility classes(Item 4) are often named with a plural noun, such as Collectors or Collections. Interfaces are named like classes, for example, Collection or Comparator, or with an adjective ending in able or ible, for example, Runnable, Iterable, or Accessible. Beacuse annotation types have so many uses, no part of speech predominates. Nouns, verbs, prepositions, and adjectives are all common, for example, BindingAnnotation, Inject, ImlpementedBy, or Singleton.
+
+Methods that perform some action are generally named with a verb or verb phrase(including object), for example, append or drawImage. Methods that return a boolean value usually have names that begin with the word is or, less commonly, has, followed by a noun, noun phrase, or any word or pharase that functions as an adjective, for example, isDigit, isProbablePrime, isEmpty, isEnabled, or hasSiblings.
+
+Methods that return a non-boolean function or attribute of the object on which they're invoked are usually named with a noun, a noun phrase, or a verb phrase beginning with the verb get, for exmaple, size, hashCode, or getTime. There is a vocal contingent that claims that only the third form(beginning with get) is acceptable, but there is little basis for this claim. The first two forms usually lead to more readable code, for example:
+```java
+ if (car.speed() > 2 * SPEED_LIMIT)
+ 	generateAudibleAlert("Watch out for cops!");
+```
+
+The form beginning with get has its roots in the largely obsolete Java Beans specification, which formed the basis of an early reusable component architecture. There are modern tools that continue to rely on the Beans naming convention, and you should feel free to use it in any code that is to be used in conjunction with these tools. There is also a strong precedent for following this naming convention if a class contains both a setter and a getter for the same attribute. In this case, the two methods are typically named getAttibute and setAttribute.
+
+A few method names deserve special mention. Instance methods that convert the type of an object, returning an independent object of a different type, are often called toType, for example, toString or toArray. Mehtods that return a view(Item 6) whose type differs from that of the receive object are often called asType, for example, asList. Methods that return a primitive with the same value as the object on which they're invoked are often called typeValue, for example, intValue. Common names for static factories inclued from, of , valueOf, instance, getInstance, newInstance, getType, and newType(Item 1, page 9).
+
+Grammatical conventions for field names are less well established and less important than those for class, interface, and method names because well-designed APIs contain few if any exposed fields. Field of type boolean are often named like boolean accessor methods with initial is ommitted, for eaxmple, initialized, composite. Field of other types are usually named with nouns or noun phrases, such as height, digits, or bodyStyle. Grammatical conventions for local varialbes are similar to those for fields but even weaker.
+
+To summarize, internalize the standard naming conventions and learn to use them as second nature. The typographical conventions are straightforward and largly unambiguous; the grammatical conventions are more complex and looser. To quote from The Java Language Specification[JLS,6.1], "These conventions should not be followed slavishly if long-held conventions usage dictates other wise." Use common sense.
