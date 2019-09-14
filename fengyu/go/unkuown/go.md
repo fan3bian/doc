@@ -40,3 +40,17 @@ const(
 // 65 65 2 3
 ```
 - iota: 常量计数器，常量组中每定义一个常量，递增
+
+
+#### func
+```goLang
+func name() (...int){
+	
+}
+```
+- 变长参数，多返回值
+- defer，类似java中finally
+- 匿名函数与闭包
+
+#### reflect
+反射可以提高程序的灵活性
