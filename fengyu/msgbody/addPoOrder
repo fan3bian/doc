@@ -1,0 +1,20 @@
+"authorizationTangWei",{"entryOrder":{"entryOrderCode":"20190709003zsy","ownerCode":"CBU4398046511123","warehouseCode":"800000060"},"orderLines":[{"itemNo":"CMG4398046511136","planQtyStr":"62.400","goodsStatus":"1"},{"itemNo":"CMG6398046511204","planQtyStr":"62.400","goodsStatus":"1"}]}
+
+
+
+=========
+alter table po_main MODIFY COLUMN org_name VARCHAR(100) DEFAULT NULL COMMENT '入库机构';
+
+
+
+
+alter table po_main add COLUMN wms_remark varchar(500) DEFAULT NULL COMMENT '备注';
+
+
+
+===redisKey
+
+hset("biz_po_add","CBUXXX","CBUXXX")
+
+
+biz_po_add
