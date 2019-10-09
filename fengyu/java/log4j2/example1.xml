@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<!--日志输出目录定义 -->
+		<Property name="LOG.PATH">/export/home/tomcat/logs/pda-ql.jd.com/server1/</Property>
+		<!--定义日志输出内容定义 -->
+		<!-- %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间 %p : 日志输出格式 %c : logger的名称 %m : 日志内容，即 logger.info("message") %n : 换行符 %C : Java类名 %L : 日志输出所在行数 %M : 日志输出所在方法名 hostName : 本地机器名 hostAddress : 本地ip地址 -->
+		<Property name="LOG.PATTERN">%d{yyyy-MM-dd HH:mm:ss} %-5p %c %M:%L - %m%n</Property>
+	</Properties>
+	<Appenders>
+		<!-- info级别日志定义、配置日志压缩格式(pda-ql-%i.log) -->
+		<RollingRandomAccessFile append="true" bufferSize="8192" fileName="${LOG.PATH}/pda-ql.log" filePattern="${LOG.PATH}/pda-ql-%i.log" immediateFlush="false" name="pda-info">
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+			</Filters>
+			<PatternLayout pattern="${LOG.PATTERN}"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="20"/>
+		</RollingRandomAccessFile>
+		<!-- error级别日志定义 -->
+		<RollingRandomAccessFile append="true" bufferSize="1024" fileName="${LOG.PATH}/pda-ql-error.log" filePattern="${LOG.PATH}/pda-ql-error-%i.log" immediateFlush="false" name="pda-error">
+			<Filters>
+				<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+			</Filters>
+			<PatternLayout pattern="${LOG.PATTERN}"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="50MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingRandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<!-- 第三方日志系统 -->
+		<logger additivity="false" level="ERROR" name="java.sql"/>
+		<logger additivity="false" level="ERROR" name="java.sql.ResultSet"/>
+		<logger additivity="false" level="ERROR" name="com.ibatis"/>
+		<logger additivity="false" level="ERROR" name="org.apache"/>
+		<logger additivity="false" level="ERROR" name="org.apache.ibatis"/>
+		<logger additivity="false" level="ERROR" name="org.springframework"/>
+		<logger additivity="false" level="ERROR" name="com.mchange"/>
+		<logger additivity="false" level="ERROR" name="org.apache.commons"/>
+		<logger additivity="false" level="ERROR" name="com.jd.dbs"/>
+		<logger additivity="false" level="ERROR" name="com.jd.common"/>
+		<logger additivity="false" level="ERROR" name="com.jd.jsf"/>
+		<logger additivity="false" level="ERROR" name="com.jd.jmq"/>
+		<logger additivity="false" level="ERROR" name="com.jd.etms.message"/>
+		<logger additivity="false" level="FATAL" name="com.jd.common.web.cookie"/>
+		<logger additivity="false" level="DEBUG" name="com.jd.ql.framework.ddf"/>
+		<AsyncRoot level="INFO">
+			<AppenderRef ref="pda-info"/>
+			<AppenderRef ref="pda-error"/>
+		</AsyncRoot>
+	</Loggers>
+</Configuration>

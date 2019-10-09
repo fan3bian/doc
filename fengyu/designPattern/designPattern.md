@@ -1,0 +1,1 @@
+Adapter Pattern https://blog.csdn.net/wwwdc1012/article/details/82780560 https://www.cnblogs.com/liuling/archive/2013/04/12/adapter.html
