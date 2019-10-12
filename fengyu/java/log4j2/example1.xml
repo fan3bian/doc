@@ -34,11 +34,11 @@
 	</Appenders>
 	<Loggers>
 		<!-- 第三方日志系统 -->
-		<logger additivity="false" level="ERROR" name="java.sql"/>
-		<logger additivity="false" level="ERROR" name="java.sql.ResultSet"/>
-		<logger additivity="false" level="ERROR" name="com.ibatis"/>
+		<logger additivity="false" level="debug" name="java.sql"/>
+		<logger additivity="false" level="debug" name="java.sql.ResultSet"/>
+		<logger additivity="false" level="debug" name="com.ibatis"/>
 		<logger additivity="false" level="ERROR" name="org.apache"/>
-		<logger additivity="false" level="ERROR" name="org.apache.ibatis"/>
+		<logger additivity="false" level="debug" name="org.apache.ibatis"/>
 		<logger additivity="false" level="ERROR" name="org.springframework"/>
 		<logger additivity="false" level="ERROR" name="com.mchange"/>
 		<logger additivity="false" level="ERROR" name="org.apache.commons"/>

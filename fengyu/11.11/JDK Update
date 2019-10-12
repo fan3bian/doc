@@ -24,3 +24,7 @@ javassist 3.18.1-GA
 加密，安全文件lib(jce_policy-8.zip) 替换/usr/local/java/jre/lib/security下 local_policy.jar、US_export_policy.jar 主要是因为项目中有采用AES 256算法（已知PC登录会用）
 
 http://www.sohu.com/a/126897954_505779
+
+3.
+推荐升级至1.8
+

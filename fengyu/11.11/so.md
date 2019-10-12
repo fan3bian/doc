@@ -9,6 +9,10 @@ CSL8816149692680
 
 checkTimeoutSoHandler 
 
+#### 常用接口
+
+com.jd.clps.base.so.service.SoService
+
 
 #### 订单模块外部门系统接口
 //gis地址解析服务

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="3600" status="error">
+	<properties>
+		<!--定义输出格式 除原log4j2的变量，smg提供了trace-id(调用链id),span-id(当前ID),parent-id(父ID),需依赖log4j2版本2.8+-->
+		<Property name="log_layout">${ctx:trace-id} %-5p - %d{yyyy-MM-dd HH:mm:ss} %c [%t] %l -- %m%n</Property>
+	</properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${log_layout}"/>
+		</Console>
+		<RollingRandomAccessFile fileName="${mvn.log.path}${project.name}.log" filePattern="${mvn.log.path}${project.name}-%d{yyyy-MM-dd}-%i.log" name="RollingFile">
+			<PatternLayout pattern="${log_layout}"/>
+			<Policies>
+				<!-- 归档每天的文件 -->
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<!-- 限制单个文件大小1g logbook查询，正反1G，2g可以最大查询 -->
+				<SizeBasedTriggeringPolicy size="1024 MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="9999">
+				<Delete basePath="${mvn.log.path}">
+					<IfFileName glob="${project.name}*.log"/>
+					<!--!Note: 这里的age必须和filePattern协调, 后者是精确到HH, 这里就要写成xH, xd就不起作用
+另外, 数字最好>2, 否则可能造成删除的时候, 最近的文件还处于被占用状态,导致删除不成功!-->
+					<!--7天-->
+					<IfLastModified age="7d"/>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+		<Async name="Async">
+			<AppenderRef ref="RollingFile"/>
+		</Async>
+	</Appenders>
+	<Loggers>
+		<Root includeLocation="true" level="${mvn.log.level}">
+			<AppenderRef ref="Async"/>
+		</Root>
+	</Loggers>
+</Configuration>
