@@ -85,10 +85,22 @@ taskfunnul-api 测试环境升级 完成
 #### 2019/10/10 预售订单
 
 1. 采购单下发:加可用库存
+2. 采购单上架回传：加实物库存
+3. 采购单关单：
+
+#### 2019/10/14 预售订单
+clps_po dbsql
+clps_wms
+clps_isv
+clps_master
+
+#### 2019/10/16 UCC配置
+ucc:线上地址
+http://coocmc.jd.com/
+需要在UCC上建立部门，应用。应用的负责人为其他参与者授权。
+1. 新建配置变量
 2. 
 
+#### 2019/10/16 rtw异常
 
-
-
-
-
+java.lang.NoSuchMethodError: com.jd.ump.profiler.proxy.Profiler.registerInfo(Ljava/lang/String;Ljava/lang/String;ZZ)Lcom/jd/ump/profiler/CallerInfo;

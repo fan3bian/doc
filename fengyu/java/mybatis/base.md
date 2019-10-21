@@ -5,7 +5,7 @@
 #### TypeHandler
 类型转换器:处理javaType和jdbcType转换。
 #### useGeneratedKeys和keyProperty
-这两个属性用于id回填，自动生成id需要数据库的支持，mysql需使用anto_increament
+这两个属性用于id回填，自动生成id需要数据库的支持，mysql需使用anto_increament。
 
 #### mysql中常用的表达式函数
 
@@ -45,7 +45,7 @@ session级别的缓存，相同线程，访问缓存，缓存不存在访问数�
 
 <cache type="org.mybatis.caches.enchache.EhcacheCache"></cache>
 ```
-意义不大：因为redis
+意义不大：因为有redis
 
 
 export/Logs/jvm/jmap_140151_2019-10-06-14-12-38.txt
