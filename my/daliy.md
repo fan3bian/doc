@@ -104,3 +104,24 @@ http://coocmc.jd.com/
 #### 2019/10/16 rtw异常
 
 java.lang.NoSuchMethodError: com.jd.ump.profiler.proxy.Profiler.registerInfo(Ljava/lang/String;Ljava/lang/String;ZZ)Lcom/jd/ump/profiler/CallerInfo;
+
+#### 2019/10/21 
+蒙牛预入库
+clps_isv clps_gateway clps_po clps_wms clps_seller 
+
+#### 2019/10/22 Tuesday
+clps-task-funnel 分布式任务调度系统
+
+根据业务模块划分为order stock other三个集群，集群的划分避免了某一个模块任务量激增，通道阻塞，从而影响其他模块的任务(库存重算的任务往往导致挤压)。
+同一集群内，正常任务与错误任务(重试任务)使用不同的mq队列，这样又避免了重试任务过多导致通道阻塞，影响到正常任务的运行。
+
+#### 2019/10/28 Monday
+```sql
+select warehouse_name,warehouse_no from warehouse where warehouse_name in('邢台南宫百川云仓1号库','威海中外运云仓1号库','北京悠酒国际云仓1号库','定州隆德体育云仓1号库','北京配思云仓1号库','石家庄亮道云仓1号库','廊坊霸州波菲特云仓1号库','北京盛世嘉祥云仓1号库','呼和浩特天马云仓1号库','聊城鑫火云仓1号库','滨州林源云仓1号库','保定奥黛莉云仓1号库','保定顺捷云仓1号库','北京凤鸟云仓2号库','衡水九号仓河北供应链云仓1号库','日照河川云仓1号库','青岛电商通云仓1号库','张家口卿安云仓1号库','廊坊霸州祥其瑞云仓1号库','石家庄微客云仓1号库','沧州任丘鼎盛云仓1号库') and yn = 1;
+
+select a.seller_no,a.seller_name,group_concat(b.dept_no) as dept_nos
+from seller a inner join dept b on a.id = b.seller_id where a.seller_name in ('河北御泰汽车用品有限公司','山东连京商业管理有限公司','北京中通春华物流有限公司','定州市隆德体育用品有限公司','北京圆邦富成物流有限公司','石家庄花辰熙月商贸有限公司','天津波菲特家具有限公司','北京华艺拓海文化传媒有限公司','内蒙古天马物流服务有限公司','阳谷县鑫火新能源有限公司','山东林源供应链管理有限公司','保定奥黛莉皮具制造有限公司','高阳县顺捷物流有限公司','北京中和致远科技发展有限公司','九号仓河北供应链管理有限公司','山东河川经贸有限公司','青岛电商通国际物流有限公司','上海卿安信息科技有限公司','福州顺道电子商务有限公司','石家庄微客物流有限公司','任丘市鼎盛采暖设备有限公司') and a.yn = 1 and b.yn = 1 
+group by a.seller_name,a.seller_no ;
+```
+#### 2019/10/30 Wednesday
+com.jd.clps.base.so.service.SoQueryService
