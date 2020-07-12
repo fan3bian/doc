@@ -27,3 +27,5 @@ if(carry ==1){
 return pre.next;
 //返回结果为头结点
 ```
+#### 3.无重复字符串的最长子串
+思路：sliding window

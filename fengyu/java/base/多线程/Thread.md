@@ -1,8 +1,10 @@
-#### 线程的状态
-- NEW
-- TIMED_WAITING
-- BLOCKED
-- DESTROY
+#### 线程的生命周期
+- New:新建
+- Runnable:就绪
+- Running : 运行
+- TIMED_WAITING 
+- Blocked：阻塞
+- DESTROY(Terminated)：
 
 #### Jconsole
 
