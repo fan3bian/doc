@@ -1,0 +1,8 @@
+curl: client URL
+
+
+默认执行get请求
+
+-s: slient 不输出错误和进度信息
+-S: 只输出错误信息
+-L参数会让 HTTP 请求跟随服务器的重定向
