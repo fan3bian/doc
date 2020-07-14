@@ -157,7 +157,6 @@ The [Python-Markdown Parser][] provides support for several extensions.
 [Tables]: http://pythonhosted.org/Markdown/extensions/tables.html
 [Smart Strong]: http://pythonhosted.org/Markdown/extensions/smart_strong.html
 
-
 You can enable them all at once using the `extra` keyword.
 
     extensions: [ 'extra' ]

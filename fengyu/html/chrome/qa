@@ -1,0 +1,73 @@
+谷歌浏览器自动切换https
+
+https://pdf-lib.org/Home/Details/8879
+
+
+select id, sales_return_no, receive_enterprise_id, receive_enterprise_no, receive_enterprise_name, owner_id, owner_no, owner_name, reference_so_no, seller_sales_return_no, sender_name, sender_phone, sender_province_no, sender_province_name, sender_city_no, sender_city_name, sender_district_no, sender_district_name, sender_town_no, sender_town_name, sender_address, sender_enterprise_id, sender_enterprise_no, sender_enterprise_name, return_reason, note, carrier_id, carrier_no, carrier_name, waybill_no, create_user, update_user, create_time, update_time, status, ts, is_delete, tenant_id, total_row_nums, total_sku_qty, total_money, sp_create_time, source, receive_name, receive_phone, receive_province_no, receive_province_name, receive_city_no, receive_city_name, receive_district_no, receive_district_name, receivce_town_no, receive_town_name, receive_address, receipts_perform_no, cancel_status, cancel_failure_reason, order_type, isv_code from sales_return_main WHERE create_time >= ? and create_time <= ? and sp_create_time >= ? and sp_create_time <= ? and tenant_id = ? and owner_no in ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) limit 20;
+
+ 2020-01-01 00:00:00.0(Timestamp), 2020-01-31 23:59:59.0(Timestamp), 2020-01-01 00:00:00.0(Timestamp), 2020-01-31 23:59:59.0(Timestamp), SLES000525(String), SOWE0001032215530(String), SOWE0001032215346(String), SOWE0001032215384(String), SOWE0001032215340(String), SOWE0001032215353(String), SOWE0001032215375(String), SOWE0001032215505(String), SOWE0001032215406(String), SOWE0001032215527(String), SOWE0001032215309(String), SOWE0001032215381(String)
+
+
+CREATE TABLE `sales_return_main` (
+  `id` bigint(20) NOT NULL COMMENT '主键id',
+  `sales_return_no` varchar(50) DEFAULT NULL COMMENT '销售订单退货单号',
+  `receive_enterprise_id` bigint(20) DEFAULT NULL COMMENT '收货企业id',
+  `receive_enterprise_no` varchar(50) DEFAULT NULL COMMENT '收货企业编号',
+  `receive_enterprise_name` varchar(200) DEFAULT NULL COMMENT '收货企业名字',
+  `owner_id` bigint(20) DEFAULT NULL COMMENT '收货货主id',
+  `owner_no` varchar(50) DEFAULT NULL COMMENT '收货货主编码',
+  `owner_name` varchar(200) DEFAULT NULL COMMENT '说活货主名字',
+  `reference_so_no` varchar(50) DEFAULT NULL COMMENT '关联商家订单号',
+  `seller_sales_return_no` varchar(50) DEFAULT NULL COMMENT '商家退货单号',
+  `sender_name` varchar(200) DEFAULT NULL COMMENT '退货人姓名',
+  `sender_phone` varchar(200) DEFAULT NULL COMMENT '退货人电话',
+  `sender_province_no` varchar(50) DEFAULT NULL COMMENT '退货人所在省id',
+  `sender_province_name` varchar(100) DEFAULT NULL COMMENT '退货人所在省名称',
+  `sender_city_no` varchar(50) DEFAULT NULL COMMENT '退货人所在市id',
+  `sender_city_name` varchar(100) DEFAULT NULL COMMENT '退货人所在市名称',
+  `sender_district_no` varchar(50) DEFAULT NULL COMMENT '退货人所在区id',
+  `sender_district_name` varchar(100) DEFAULT NULL COMMENT '退货人所在区名称',
+  `sender_town_no` varchar(50) DEFAULT NULL COMMENT '退货人所在乡镇id',
+  `sender_town_name` varchar(100) DEFAULT NULL COMMENT '退货人所在乡镇名称',
+  `sender_address` varchar(200) DEFAULT NULL COMMENT '退货人详细地址',
+  `sender_enterprise_id` bigint(20) DEFAULT NULL COMMENT '退货人所属企业id',
+  `sender_enterprise_no` varchar(50) DEFAULT NULL COMMENT '退货人所属企业编号',
+  `sender_enterprise_name` varchar(255) DEFAULT NULL COMMENT '退货人所属企业名称',
+  `return_reason` varchar(255) DEFAULT NULL COMMENT '退货原因',
+  `note` varchar(255) DEFAULT NULL COMMENT '退货备注',
+  `carrier_id` bigint(20) DEFAULT NULL COMMENT '承运商id',
+  `carrier_no` varchar(50) DEFAULT NULL COMMENT '承运商编号',
+  `carrier_name` varchar(255) DEFAULT NULL COMMENT '承运商名称',
+  `waybill_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_esperanto_ci DEFAULT NULL COMMENT '运单号',
+  `create_user` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `update_user` varchar(50) DEFAULT NULL COMMENT '更新人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `status` varchar(10) DEFAULT NULL COMMENT '状态',
+  `ts` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  `yn` tinyint(4) DEFAULT NULL COMMENT '1:没有删除；0：删除',
+  `tenant_id` varchar(100) DEFAULT NULL COMMENT '租户编码',
+  `source` tinyint(255) DEFAULT NULL COMMENT '来源',
+  `sp_create_time` datetime DEFAULT NULL COMMENT '销售平台创建时间',
+  `total_row_nums` decimal(14,2) DEFAULT NULL COMMENT '行数量之和',
+  `total_sku_qty` decimal(14,2) DEFAULT NULL COMMENT '不同OMS商品编码的数量之和',
+  `total_money` decimal(14,2) DEFAULT NULL COMMENT '行金额汇总之和',
+  `receive_name` varchar(100) DEFAULT NULL COMMENT '收货人姓名',
+  `receive_phone` varchar(100) DEFAULT NULL COMMENT '收货人电话',
+  `receive_province_no` varchar(50) DEFAULT NULL COMMENT '收货人省编码',
+  `receive_province_name` varchar(100) DEFAULT NULL COMMENT '收货人省名称',
+  `receive_city_no` varchar(50) DEFAULT NULL COMMENT '收货人市编码',
+  `receive_city_name` varchar(100) DEFAULT NULL COMMENT '收货人市名称',
+  `receive_district_no` varchar(50) DEFAULT NULL COMMENT '收货人区编码',
+  `receive_district_name` varchar(100) DEFAULT NULL COMMENT '收货人区名称',
+  `receivce_town_no` varchar(50) DEFAULT NULL COMMENT '收货人乡镇编码',
+  `receive_town_name` varchar(100) DEFAULT NULL COMMENT '收货人乡镇名称',
+  `receive_address` varchar(500) DEFAULT NULL COMMENT '收货人详细地址',
+  `receipts_perform_no` varchar(50) DEFAULT NULL COMMENT '关联入库单号',
+  `cancel_status` varchar(10) DEFAULT NULL COMMENT '取消状态',
+  `cancel_failure_reason` varchar(255) DEFAULT NULL COMMENT '取消失败原因',
+  `order_type` varchar(20) DEFAULT 'XT' COMMENT '订单类型',
+  `isv_code` varchar(50) DEFAULT NULL COMMENT 'isv软件编码',
+  `is_delete` tinyint(4) NOT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT

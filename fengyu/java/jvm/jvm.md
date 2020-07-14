@@ -1,25 +1,20 @@
-<<<<<<< HEAD
 #### jvm启动参数
 https://blog.csdn.net/tterminator/article/details/54342666
 =======
 #### 
 
 1. 加载
-全xin
-
 Constant Pool: 运行时常量池
 本地方法栈：C语言实现的方法。
 虚拟机栈：
 
-	栈：
+	栈结构：
 		当前栈帧
 		局部变量表
 		操作数栈：
 		动态链接
 		方法出口或返回值
  	程序计数器：
-
-
 
 
 Methodref
