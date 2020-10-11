@@ -13,7 +13,7 @@ java 8新增了函数式接口的注解：**FunctionalInterface**，声明在只
 
 #### Standard Functional interfaces
 
-- The Operator interfaces represent functions whose result and argument types are the same.
+- The Operator interface represent functions whose result and argument types are the same.
 - The Predicate interface represents a function that takes an argument and returns a  boolean .
 - The Function interface represents a function whose argument and return types differ.
 - The Supplier interface represents a function that takes no arguments and returns (or “supplies”) a value.
@@ -30,6 +30,3 @@ java 8新增了函数式接口的注解：**FunctionalInterface**，声明在只
 |Supplier<T> |T get() |Instant::now|
 |Consumer<T> |void accept(T t)| System.out::println|
 
-
-
-	count_韵铭云仓_newCombination.submitNewCombinationRule.do,10000
