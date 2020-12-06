@@ -5,7 +5,7 @@
 （3）ArrayList插入、删除、查询元素的时间复杂度各是多少？
 	add方法在尾部进行插入，复杂度是O(1),在指定位置插入需要移动后面的元素，复杂度是O(N),使用get方法通过下标查询复杂度是O(1),删除元素复杂度是O(1)
 （4）怎么求两个集合的并集、交集、差集？
-	stream
+	addAll retainAll removeAll
 （5）ArrayList是怎么实现序列化和反序列化的？
 	writeObject，readObject方法。ArrayList使用transient抑制elementData数组的序列化，只把序列化元素。
 （6）集合的方法toArray()有什么问题？
