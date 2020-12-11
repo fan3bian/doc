@@ -1,0 +1,32 @@
+
+#### 事务
+一组SQL语句，要么都成功，要么都失败
+
+#### ACID原则
+
+事务的四个特性：
+- Atomicity(原子性)：一个事务中的所有操作，或者全部完成，或者都不完成。事务执行过程中发生错误，会回滚到事务开始前的状态。
+- Consistency(一致性)：事务开始前和事务开始后，数据库的完整性没有被破坏。
+- Isolation(隔离性)：数据库允许多个事务并发的访问和修改同一数据，隔离性可以防止多个事务并发执行时由于交叉执行而导致不一致。
+- Durability(持久性)：事务结束后，对数据的修改是永久的。
+
+#### 四种隔级别
+
+多个事务对同一条数据并发的进行访问或者更新，会出现脏写、脏读、不可重复读、幻读等问题。
+
+- Read Uncommitted：读未提交
+- Read Committed(RC)：读已提交
+- Repeatable Read(RR)：可重复读
+- Serializable：串行化
+
+```sql
+-- 查看msyql事务隔离级别
+show variables like '%tx_isolation%';
+select @@tx_isolation;
+-- 修改事务隔离级别 ！慎用
+set tx_isolation='READ-COMMITTED'
+```
+Mysql事务隔离级别使用RR作为默认
+
+#### MVCC多版本并发控制机制
+MVCC(Multiversion Concurrency Control)：
