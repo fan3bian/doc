@@ -29,4 +29,4 @@ set tx_isolation='READ-COMMITTED'
 Mysql事务隔离级别使用RR作为默认
 
 #### MVCC多版本并发控制机制
-MVCC(Multiversion Concurrency Control)：
+MVCC(Multiversion Concurrency Control)：实现了事务隔离
