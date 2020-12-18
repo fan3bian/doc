@@ -32,6 +32,6 @@ Application ClassLoader:
 Customized ClassLoader:
 
 ##### 双亲委派模型
-
+为了避免多层级的类加载器重复某些类，使用双亲委派模型，先由父类加载去，如果不在所负责目录范围内，再由自类去加载。
 
 
