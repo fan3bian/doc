@@ -37,3 +37,5 @@ public void recur(int level, int param) {
 
   // restore current status 
 ```
+
+对于递归而言，最重要的是明确递归函数的意义。
