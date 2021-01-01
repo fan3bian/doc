@@ -26,3 +26,6 @@ innodb_buffer_pool_size 大于 1GB 时, innodb_buffer_pool_instances 默认为 8
 
 
 When increasing or decreasing innodb_buffer_pool_size, the operation is performed in chunks. Chunk size is defined by the innodb_buffer_pool_chunk_size configuration option, which has a default of 128M.
+
+
+
