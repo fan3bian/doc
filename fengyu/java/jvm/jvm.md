@@ -64,7 +64,7 @@ export OPTS_MEMORY="-XX:+UseConcMarkSweepGC -XX:ParallelGCThreads=4 -XX:CMSIniti
 ```
 
 
-在UMP看到的应用参数
+在监控系统看到的应用参数
 ```
 /export/servers/jdk1.7.0_71/bin/java -Djava.library.path=/usr/local/lib -server -Xms1024m -Xmx2048m -XX:MaxPermSize=256m -Djava.awt.headless=true -Dsun.net.client.defaultReadTimeout=60000 -Djmagick.systemclassloader=no -Dnetworkaddress.cache.ttl=300 -Dsun.net.inetaddr.ttl=300 -XX:+UseConcMarkSweepGC -XX:ParallelGCThreads=4 -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:+UseCMSInitiatingOccupancyOnly -Xms4096m -Xmx4096m -Xmn1024m -XX:MaxPermSize=512m -XX:+UnlockExperimentalVMOptions -Xss512K -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./java_pid<pid>.hprof -javaagent:/export/sgm-probe/sgm-probe-5.0.13-product/sgm-agent-5.0.13.jar -Xbootclasspath/a:/export/sgm-probe/sgm-probe-5.0.13-product/sgm-agent-5.0.13.jar -Dsgm.app.name=zap_goods -classpath /export/Instances/zap_goods/server1/runtime/conf:/export/Instances/zap_goods/server1/runtime/lib/* -Dbasedir=/export/Instances/zap_goods/server1/runtime -Dfile.encoding=UTF-8 com.fan3bian.zap.goods.GoodsLauncher
 ```
