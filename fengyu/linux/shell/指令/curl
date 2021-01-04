@@ -6,3 +6,5 @@ curl: client URL
 -s: slient 不输出错误和进度信息
 -S: 只输出错误信息
 -L参数会让 HTTP 请求跟随服务器的重定向
+
+redis-cli -h 172.20.65.58 -p 6379 -c
