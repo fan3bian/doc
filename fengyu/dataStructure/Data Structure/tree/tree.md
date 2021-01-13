@@ -50,7 +50,7 @@ public List<Integer> inorderTraversal(TreeNode root) {
 有序的二叉树
 
 
-把题目要求细化到每个节点应该做的事情
+二叉树的问题难点在于如何把题目的要求**细化成每个节点需要做的事情**
 
 
 public void traverse(TreeNode root) {

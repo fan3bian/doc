@@ -1,22 +1,95 @@
-链表反转
-//迭代
+```java
+//链表结构
+public class ListNode{
+	int val;
+	ListNode next;
+	ListNode(int val) {
+		val = x;
+	}
+}
+//迭代反转链表
 public ListNode reverseList(ListNode head) {
 	ListNode prev = null;
-	ListNode curr = head;
-	while (curr != null) {
-		ListNode temp = curr.next;
-		curr.next = prev;
-		prev = curr;
-		curr = temp;
+	ListNode cur = head;
+	while (cur != null) {
+		//把当前节点的next指针指向上一个节点
+		ListNode temp = cur.next;
+		cur.next = prev;
+		prev = cur;
+		cur = temp;
 	}
+	return prev; 
+}
+//递归反转链表
+public ListNode reverseList(ListNode head) {
+	
+	if (head == null || head.next == null) {
+		return head;
+	}
+	ListNode last = reverseList(head.next);
+	head.next.next = head;
+	head.next = null;
+	return last;	
+}
+//反转前N个节点
+//迭代
+public ListNode reverseN(ListNode head, int n) {
+	ListNode prev = null;
+	ListNode cur = head;
+	int i = 0;
+	while (i < n) {
+		ListNode temp = cur.next;
+		cur.next = prev;
+		prev = cur;
+		cur = temp;
+		i++;
+	}
+	head.next = cur;
 	return prev;
 }
 //递归
-public ListNode reverseList(ListNode head) {
-	//termination
-	if (head == null || head.next == null) return ;
-	ListNode last = reverseList(head);
-	head.next = head.next.next;
-	head.next = null;
+ListNode successor = null;//后驱节点
+public ListNode reverseN(ListNode head, int n) {
+	//终止条件改变
+	if (n == 1) {
+		successor = head.next;
+		return head;
+	}
+	ListNode last = reverseN(head.next, n - 1);
+	head.next.next = head;
+	head.next = successor;//接上原来节点
 	return last;
 }
+//反转链表的一部分
+//迭代
+//递归
+public ListNode reverseBetween(ListNode head, int m, int n) {
+	if (m == 1) {
+		return reverseN(head, n);
+	}
+	head.next = reverseBetween(head.next, m - 1, n - 1);
+	return head;
+}
+```
+递归和迭代的本质相同，反转链表对于操作链表的方式也是一致的。不同点在于，迭代是通过操作cur节点，而递归操作的是cur.next;
+
+```java
+//K个一组反转链表
+ListNode reverseKGroup (ListNode head, int k) {
+	if (head == null) 
+		return head;
+	ListNode a, b;
+	a = b = head;
+	for (int i = 0; i < k; k++) {
+		//不足K个，不需要反转
+		if (b == null)
+			return head;
+		b = b.next;
+	}
+	//反转前k个元素
+	ListNode newHead = reverse(a,b);
+	//递归反转后续链表并连接起来
+	a.next = reverseKGroup(b, k);
+	return newHead;
+}
+```
