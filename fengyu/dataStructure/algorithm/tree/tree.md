@@ -49,4 +49,70 @@ public List<Integer> inorderTraversal(TreeNode root) {
 ## Binary Search Tree
 有序的二叉树
 
+1、对于 BST 的每一个节点node，左子树节点的值都比node的值要小，右子树节点的值都比node的值大。
+2、对于 BST 的每一个节点node，它的左侧子树和右侧子树都是 BST。
+特性：BST 的中序遍历结果是有序的（升序）。
 
+#### BST遍历
+```java
+//搜索
+public void searchBST(TreeNode root, int target) {
+	if (root.val == target) {
+		//do something
+	}
+	if (root.val < target) {
+		searchBST(root.right, target);
+	}
+	if (root.val > target) {
+		searchBST(root.left, target);
+	}
+}
+//插入
+TreeNode insertBST(TreeNode root, int val) {
+	if (root == null) {
+		return new TreeNode(val);
+	}
+	if (root.val == val) {
+		throws new IllegalArgumentException("illegal val");
+	}
+	if (root.val < val) {
+		root.right = insertBST(root.right, val);
+	}
+	if (root.val > val) {
+		root.left = insertBST(root.left, val);
+	}
+	return root;
+}
+//删除
+TreeNode deleteBST(TreeNode root, int val) {
+	if (root == null) {
+		throws new IllegalArgumentException("illegal val");
+	}
+	if (root.val == val) {
+		//do lelete
+		if (root.left == null) {
+			return root.right;
+		}
+		if (root.right == null) {
+			return root.left;
+		}
+		TreeNode minNode = getMin(root.right);
+		root.val = minNode.val;
+		root.right = deleteBST(root.right, minNode.val);
+	}	
+	if (root.val < val) {
+		root.right = deleteBST(root.right, val);
+	}
+	if (root.val > val) {
+		root.left = deleteBST(root.left, val);
+	}
+	return root;
+}
+TreeNode getMin(TreeNode node) {
+	//BST最左边的树
+	while (node.left ！= null) {
+		node = node.left;
+	}
+	return node;
+}
+```
