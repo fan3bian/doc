@@ -57,12 +57,12 @@ dependencyManagement 依赖管理是一种
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.jd.clps</groupId>
-    <artifactId>clps-dependency</artifactId>
+    <groupId>com.jd.fan3bian</groupId>
+    <artifactId>zap-dependency</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
-    <name>clps-dependency</name>
+    <name>${project.artifactId}</name>
     <description>统一管理依赖</description>
 
     <properties>
@@ -93,15 +93,8 @@ dependencyManagement 依赖管理是一种
         <xstream.version>1.4.10</xstream.version>
 
 
-        <jsf.version>1.6.9</jsf.version>
-        <jfs.version>1.3.1-SNAPSHOT</jfs.version>
-        <jimdb.version>1.4.5-SNAPSHOT</jimdb.version>
-        <jmq.version>2.3.0</jmq.version>
         <ump.profiler.version>3.2.0</ump.profiler.version>
         <profiler_aop.version>1.0.0</profiler_aop.version>
-        <jd.schedule.version>3.0.1-SNAPSHOT</jd.schedule.version>
-        <jd.security.configsec.version>1.0.2.RELEASE</jd.security.configsec.version>
-
 
         <commons.lang.version>2.6</commons.lang.version>
         <commons.lang3.version>3.3.2</commons.lang3.version>
@@ -237,134 +230,6 @@ dependencyManagement 依赖管理是一种
                 <version>${log4j2.version}</version>
             </dependency>
             <!-- Logging End -->
-            <!--京东中间件-->
-            <dependency>
-                <groupId>com.jd</groupId>
-                <artifactId>jsf</artifactId>
-                <version>${jsf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>slf4j-api</artifactId>
-                        <groupId>org.slf4j</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.jim.cli</groupId>
-                <artifactId>jim-cli-api</artifactId>
-                <version>${jimdb.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>slf4j-log4j12</artifactId>
-                        <groupId>org.slf4j</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>fastjson</artifactId>
-                        <groupId>com.alibaba</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.jfs</groupId>
-                <artifactId>jfs-java-sdk</artifactId>
-                <version>${jfs.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.ump</groupId>
-                <artifactId>profiler</artifactId>
-                <version>${ump.profiler.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.ump</groupId>
-                <artifactId>profiler_aop</artifactId>
-                <version>${profiler_aop.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.jmq</groupId>
-                <artifactId>jmq-client-spring</artifactId>
-                <version>${jmq.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.jd.jmq</groupId>
-                        <artifactId>jmq-client-ump</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>fastjson</artifactId>
-                        <groupId>com.alibaba</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>slf4j-log4j12</artifactId>
-                        <groupId>org.slf4j</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.jmq</groupId>
-                <artifactId>jmq-client-core</artifactId>
-                <version>${jmq.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>slf4j-api</artifactId>
-                        <groupId>org.slf4j</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.jmq</groupId>
-                <artifactId>jmq-client-ump</artifactId>
-                <version>${jmq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jd</groupId>
-                <artifactId>joy-schedule-service</artifactId>
-                <version>${jd.schedule.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>guava</artifactId>
-                        <groupId>com.google.guava</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jsf</artifactId>
-                        <groupId>com.jd</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.jd.security.configsec</groupId>
-                <artifactId>spring-configsec-sdk</artifactId>
-                <version>${jd.security.configsec.version}</version>
-            </dependency>
-
             <!-- json start -->
             <dependency>
                 <groupId>com.google.code.gson</groupId>
@@ -437,19 +302,6 @@ dependencyManagement 依赖管理是一种
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <distributionManagement>
-        <repository>
-            <id>jd-central</id>
-            <name>libs-releases</name>
-            <url>http://artifactory.jd.com/libs-releases-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>jd-snapshots</id>
-            <name>libs-snapshots</name>
-            <url>http://artifactory.jd.com/libs-snapshots-local</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
 
 ```

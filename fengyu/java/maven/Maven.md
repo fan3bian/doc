@@ -69,7 +69,8 @@ Maven会解析依赖的POM,将那些必要的间接依赖以传递性的形式�
 
 ###### 归类依赖
 Spring Framwork体系
-###### 
+
+###### 依赖分析
 Maven会自动解析项目所有的直接依赖和传递性依赖(间接依赖)，根据规则判定依赖的范围。解决依赖冲突，确保每个构件有唯一的版本，以得到最终的已解析依赖(Resolved Dependency)
 ```bash
 mvn dependency:list
@@ -81,7 +82,9 @@ mvn dependency:analyze
 - Remote Repository
 -- Central Repository
 -- Private Repository (局域网)
+
 ###### 私服
+
 私服是一种特殊的远程仓库，架设在局域网。当Maven需要下载构件时，从私服请求，私服不存在该构件，则从外部仓库下载，缓存在私服上。使用私服的有点是：节省外网带宽，加速Maven构建，稳定性高，可控
 
 配置仓库信息
