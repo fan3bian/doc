@@ -2,3 +2,15 @@
 
 #### 遍历的选择
 具体使用前序、中序、后序遍历取决于处理当前根节点时需依赖信息(无、左子树、子树)
+
+
+    public String collect(TreeNode node) {
+        if (node == null) return "#";
+        String serial = node.val + "," + collect(node.left) + "," + collect(node.right);
+        count.put(serial, count.getOrDefault(serial, 0) + 1);
+        if (count.get(serial) == 2)
+            ans.add(node);
+        return serial;
+    }
+
+ 
