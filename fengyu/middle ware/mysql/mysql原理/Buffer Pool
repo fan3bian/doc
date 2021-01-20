@@ -1,0 +1,27 @@
+## Buffer Pool
+
+Buffer Pool(缓冲池)是InnoDB存储引擎重要的内存组件。
+Buffer Pool里缓存了大量数据，SQL查询时如果Buffer Pool里有，从Buffer Pool中读取；如果没有,从磁盘数据中加载到Buffer Pool中
+
+```
+[sever]
+innnodb_buffer_pool_size=134217728
+```
+
+msyql默认的buffer_pool_size是128M，生产一般可以设置为2G。
+
+#### 数据页
+mysql以数据页为单位把磁盘文件中的数据加载到缓冲池中，一个数据页包含多个数据行。数据页默认大小16KB
+
+#### 缓存页
+缓存页：加载到缓存池中的数据页称作缓存页，大小与数据页一致，16KB
+
+###### 缓存页的描述信息
+描述数据：每个缓存页有一个描述信息，记录缓存页所属表空间、数据页的编号、缓存页在buffer pool中地址。描述信息放在buffer pool前面，描述数据相当于缓存页大小5%，800bytes。因为描述数据的存在，Buffer Pool大小通常比设定的稍大一些。
+
+#### free链表
+free链表用于记录buffer pool中哪些缓存页处于空闲状态，是一个双向链表，每个节点是空闲缓存页元数据块的地址，基础结点(base node)里面记录了头结点、尾节点地址，以及链表的长度
+
+#### 缓存页hash表
+当mysql需要使用一个数据页时，如何判断数据页是否被缓存？通过查询缓存页hash表，缓存页hash表使用表空间号+数据页号做为key，缓存页的地址做为value。
+mysql在读取数据页进入缓存后，会写入缓存页hash表。

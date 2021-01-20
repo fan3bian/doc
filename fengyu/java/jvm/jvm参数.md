@@ -37,12 +37,11 @@ NewGenerationSize = 4096 * 5% = 200M(近似)
 ```
 
 ```java 1.8
--Xms4096M -Xmx4096M -Xmn2048M -Xss1M  -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=256M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFaction=92 -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=0 -XX:+CMSParallelInitialMarkEnabled -XX:+CMSScavengeBeforeRemark
+-Xms4096M -Xmx4096M -Xmn2048M -Xss1M  -XX:MetaspaceSiz=256M -XX:MaxMetaspaceSizee=256M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFaction=92 -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=0 -XX:+CMSParallelInitialMarkEnabled -XX:+CMSScavengeBeforeRemark
 ```
 1.8 后
 PermSize = MaxMetaspaceSize
 
 
 https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html
-https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
 https://www.cnblogs.com/redcreen/archive/2011/05/04/2037057.html
