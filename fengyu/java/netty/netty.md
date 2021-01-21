@@ -15,8 +15,3 @@ ChannelInboundHandlerAdapter: 扩展点
 
 
 
-
-
-generatePurchasePerform
-
-{"data":{"purchaseNo":"SCPO48597630681475","warehouseNo":"SWHS0001032215200","factoryCode":"3","stockLocationCode":"3","batchNo":"1","purchaseItemDtoList":[{"lineNo":"line1","goodsNo":"SMCD48597630686882","applyQty":50},{"lineNo":"line2","goodsNo":"SMCD48597630683435","applyQty":50}]}}
