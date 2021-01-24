@@ -116,3 +116,5 @@ TreeNode getMin(TreeNode node) {
 	return node;
 }
 ```
+
+前序遍历的代码在进入某一个节点之前的那个时间点执行，后序遍历代码在离开某个节点之后的那个时间点执行
