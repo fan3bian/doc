@@ -1,0 +1,16 @@
+常用指令：
+ping
+telnet
+ps
+jstat
+jmap
+jstack
+netstat
+dig
+traceroute
+hostname
+date
+free
+df
+ulimit
+vmstat
