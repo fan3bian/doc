@@ -1,8 +1,6 @@
 1. == 和equals方法的区别
-==是运算符，equals()是Object根类的方法。java中，==和equals()比较的变量的物理地址。
+==是运算符，equals()是Object根类的方法。==比较的变量的内存地址，而一些类通过重写Object的equals方法，来实现自己的equals功能。
 2. String里的equals方法是如何实现的？
-如果问蒙了：2.1 String类里的equals方法的参数是什么类型的？
-再蒙的话：2.2 Object类里的equals方法的参数是什么类型的？(重写：override)
 
 #### 面向对象的特征
 三大特征：封装 继承 多态
@@ -30,16 +28,13 @@ finally常用于和try-catch相结合，是异常处理语句结构中，表示�
 
 finalize是Object类的方法。在垃圾回收机制中，对象回收的时候执行会被调用。允许回收此前未回收的内存垃圾。
 https://blog.csdn.net/sheepmu/article/details/38326783
-#### Int和Integer的区别
-
+#### int和Integer的区别
 int是基本数据类型，Integer是引用数据类型。
 int的默认值是0，Integer的默认值是null
 https://blog.csdn.net/chenliguan/article/details/53888018
 
 #### 重载和重写的区别
-
 重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变
-
 重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。
 
 #### 反射的用途和实现
@@ -53,16 +48,7 @@ https://blog.csdn.net/chenliguan/article/details/53888018
 #### 说说自定义注解的场景及实现
 
 java有四种元注解：@Retention、@Inherited、@Documented、@Target
-
 注解更像一个标记，在切面中，或者反射中通过这个标记，来横向的做一些操作。
-
-#### HTTP请求的GET与POST方式的区别
-
-请求的数据会附加在URL之后，以?分割URL和传输数据，多个参数用&连接。URL的编码格式采用的是ASCII 编码，而不是uniclde，即是说所有的非ASCII字符都要编码之后再传输。
-POST请求：POST请求会把请求的数据放置在HTTP请求包的包体中。GET请求的数据会暴露在地址栏中，而POST请求则不会。
-
-https://blog.csdn.net/hacker_Lees/article/details/54132904
-https://www.cnblogs.com/hyddd/archive/2009/03/31/1426026.html
 
 #### session与cookie区别
 session机制采用的是一种在服务器端保持状态的解决方案。

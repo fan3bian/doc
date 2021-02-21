@@ -1,0 +1,2 @@
+-XX:+UseParNewGC 启用ParNew垃圾回收器
+-XX:ParallelGCThreads ParNew垃圾回收线程数量

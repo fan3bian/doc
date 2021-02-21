@@ -3,6 +3,14 @@ https://mp.weixin.qq.com/s/_ymfWYvTNd2GvWvC5HOE4A
 ## Binary Tree
 二叉树：每个节点至多有两个子节点
 
+### 二叉树的存储
+可以链式存储(链表)，也可以顺序存储(数组)
+
+### 二叉树的遍历方式
+
+### 广度优先遍历(GFS:)
+层次遍历：
+
 ### 深度优先遍历(DFS:Depth First Search)
 
 - 前序遍历：中左右

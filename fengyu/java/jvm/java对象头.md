@@ -3,7 +3,7 @@ https://www.jianshu.com/p/9d729c9c94c4
 
 ## Java对象格式
 
-- Instance Header(对象头)：java对象hash、GC年龄、锁标识、class指针、数据长度等
+- Instance Header(对象头)：java对象hashCode、GC年龄、锁标识、class指针、数据长度等
 - Instance Data(实例数据)：
 - Padding(补齐)：
 

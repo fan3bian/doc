@@ -57,7 +57,6 @@ private void dfs (Deque<Integer> track, int start, int[] nums) {
 List<List<Integer>> res = new ArrayList<>();
 public List<List<Integer>> combine (int n, int k) {
 	Deque<Integer> track = new LinkedList<>();
-
 }
 private void dfs (Deque<Integer> track, int start, int n ,int k) {
 	if (track.size() == k) {
@@ -70,3 +69,16 @@ private void dfs (Deque<Integer> track, int start, int n ,int k) {
 	}
 }
 ```
+
+#### 剪枝
+
+可以剪枝的地⽅就在递归中每⼀层的for循环所选择的起始位置。
+如果for循环选择的起始位置之后的元素个数 已经不⾜ 我们需要的元素个数了，那么就没有必要搜索
+了。
+处理过程和回溯过程是一一对应
+
+回溯法抽象为决策树结构后，其遍历过程就是：for循环横向遍历，递归纵向遍历，回溯不断调整结果集。
+
+排列问题树的深度是固定的，组合问题树的深度是可变的。
+
+836080779
