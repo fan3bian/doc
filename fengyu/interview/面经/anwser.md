@@ -44,3 +44,5 @@ put操作流程：
 对于Key对应的数组元素的可见性，由Unsafe的getObjectVolatile方法保证
 
 jdk1.7 使用segment分段锁的方式实现，Segment继承ReentrantLock，所以具有锁的功能。ConcurrentHashMap里维护了一个segment数组，
+
+
