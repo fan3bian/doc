@@ -11,15 +11,16 @@
 
 #### -XX
 
-- ea: enable assertion，启用断言。JUnit测试一般带上这个参数
-- Xms: the initial memory allocation pool。 初始堆大小 -XX:MaxHeapSize
-- Xmx: Size of young generation heap space。 最大堆大小 -XX:InitialHeapSize
-- Xss: the memory of each stack 栈内存
-- MaxPermSize: Size of the permanent space(before 1.8)
-- PermSize: intial size of the permanent space(before 1.8)
-- XX:G1NewSizePercent: 新生代占比，默认5%
-- XX:MaxG1NewSizePercent: 新生代最大占比，默认60%
-
+- `-ea`: enable assertion，启用断言。JUnit测试一般带上这个参数
+- `-Xms`: the initial memory allocation pool。 初始堆大小 -XX:MaxHeapSize
+- `-Xmx`: Size of young generation heap space。 最大堆大小 -XX:InitialHeapSize
+- `-Xss`: the memory of each stack 栈内存
+- `-MaxPermSize`: Size of the permanent space(before 1.8)
+- `-PermSize`: intial size of the permanent space(before 1.8)
+- `-XX`:G1NewSizePercent: 新生代占比，默认5%
+- `-XX`:MaxG1NewSizePercent: 新生代最大占比，默认60%
+- `-XX`:+UseParNewGC 启用ParNew垃圾回收器
+- `-XX`:ParallelGCThreads ParNew垃圾回收线程数量
 
 
 ## G1参数配置
