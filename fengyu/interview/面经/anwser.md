@@ -45,4 +45,30 @@ put操作流程：
 
 jdk1.7 使用segment分段锁的方式实现，Segment继承ReentrantLock，所以具有锁的功能。ConcurrentHashMap里维护了一个segment数组，
 
+3. Collections.synchonizedMap()和ConcurrentHashMap
+这两种方式都能保证线程安全，synchonizedMap对传入的hashMap进行了一层封装，内部的防范都是使用synchronzied进行加锁，性能低。相比较而言ConcurrentHashMap锁的粒度更小，并发性能更好。
+
+
+#### 多线程
+1. 进程和线程之间的区别？
+进程和线程都是独立的执行序列，进程有独立的内存空间，同一个进行的多个线程之间共享进程的内存空间。
+
+2. 为什么要使用线程池？
+- 增加线程可管理性，线程是稀缺资源，不可能无限制的创建
+- 降低资源的消耗，线程的频繁创建和销毁，会损耗系统性能
+- 提高相应速度，任务到达时，不用等待线程创建。
+
+3. 线程池的核心参数
+executorService.
+
+- coolPoolSize 核心线程数
+- maxPoolSize 最大线程数
+- timeOut 超时时间
+- timeUnit 时间单位
+- workQueue 工作队列
+- errorHandler 失败处理器
+
+
+
+
 
