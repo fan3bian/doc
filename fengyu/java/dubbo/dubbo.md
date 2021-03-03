@@ -4,9 +4,6 @@
 
 - jdk标准的rmi协议
 - WebService
-- 
-
-
 
 2. dubbo集群的负载均衡策略
 Dubbo内置4了四种负载均衡策略：
