@@ -1,11 +1,11 @@
 ## Kafka入门
 
 #### 核心概念
-Producer Broker Consumer Topic
+Producer Broker Consumer Topic Partition Replica
 
 #### Broker
-Broker集群由一个Leader Broker和其他Follower Broker组成，连接同一个Zookeeper集群。Leader在kafka启动时选举出来
-
+<!-- Broker集群由一个Leader Broker和其他Follower Broker组成，连接同一个Zookeeper集群。Leader在kafka启动时选举出来
+ -->
 #### Consumer Group
 Topic里的消息，一个Cunsumer Group只能消费一次，由其中某一个consumer进行消费
 
